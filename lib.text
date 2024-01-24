@@ -1,9 +1,15 @@
+#Front
+react
+axios
+react-dom
+
+#Back
 express
 nodemon
 cors
-react
-axios 
+mysql
+cookie-parser
 
 docker
 docker-compose
-mysql
+
