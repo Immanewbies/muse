@@ -3,7 +3,6 @@ import Home from './Home'
 import Register from './Register'
 import Login from './Login'
 import ChordPiano from './ChordPiano'
-import Home from './Home'
 
 function App() {
   return (

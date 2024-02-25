@@ -66,4 +66,4 @@ function Register() {
   )
 }
 
-export default RegisterForm;
+export default Register
