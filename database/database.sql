@@ -25,6 +25,8 @@ CREATE TABLE Note (
 CREATE TABLE Chord (
     chord_id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
     chord_name VARCHAR(11) NOT NULL,
+    chord_note VARCHAR(2) NOT NULL,
+    chord_tension VARCHAR(11) NOT NULL,
     img_src VARCHAR(255) NOT NULL,
     audio_src VARCHAR(255) NOT NULL
 );
@@ -32,6 +34,8 @@ CREATE TABLE Chord (
 CREATE TABLE Scale (
     scale_id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
     scale_name VARCHAR(11) NOT NULL,
+    scale_note VARCHAR(2) NOT NULL,
+    scale_tension VARCHAR(11) NOT NULL,
     img_src VARCHAR(255) NOT NULL,
     audio_src VARCHAR(255) NOT NULL
 );
@@ -112,5 +116,14 @@ INSERT INTO Difficulty (difficulty_name) VALUES("Easy");
 INSERT INTO Difficulty (difficulty_name) VALUES("Normal");
 INSERT INTO Difficulty (difficulty_name) VALUES("Hard");
 INSERT INTO Note (note_name, img_src, audio_src) VALUES("C", "C:/" ,"C:/");
-INSERT INTO Chord (chord_name, img_src, audio_src) VALUES("Cmaj", "C:/" ,"C:/");
-INSERT INTO Scale (scale_name, img_src, audio_src) VALUES("C Major", "C:/" ,"C:/");
+INSERT INTO Chord (chord_name,chord_note,chord_tension, img_src, audio_src) VALUES("C","C","Major", "C:/" ,"C:/");
+INSERT INTO Chord (chord_name,chord_note,chord_tension, img_src, audio_src) VALUES("Cm","C","Minor", "C:/" ,"C:/");
+INSERT INTO Chord (chord_name,chord_note,chord_tension, img_src, audio_src) VALUES("Cmaj7","C","Major 7","C:/" ,"C:/");
+INSERT INTO Chord (chord_name,chord_note,chord_tension, img_src, audio_src) VALUES("Cm7","C","Minor 7","C:/" ,"C:/");
+INSERT INTO Scale (scale_name, scale_note,scale_tension, img_src, audio_src) VALUES("C Major","C","Major", "C:/" ,"C:/");
+INSERT INTO Scale (scale_name,scale_note,scale_tension, img_src, audio_src) VALUES("C Minor","C","Minor", "C:/" ,"C:/");
+
+INSERT INTO Chord (chord_name,chord_note,chord_tension, img_src, audio_src) VALUES("D","D","Major", "C:/" ,"C:/");
+INSERT INTO Chord (chord_name,chord_note,chord_tension, img_src, audio_src) VALUES("Dm","D","Minor", "C:/" ,"C:/");
+INSERT INTO Chord (chord_name,chord_note,chord_tension, img_src, audio_src) VALUES("Dmaj7","D","Major 7","C:/" ,"C:/");
+INSERT INTO Chord (chord_name,chord_note,chord_tension, img_src, audio_src) VALUES("Dm7","D","Minor 7","C:/" ,"C:/");

@@ -1,17 +1,30 @@
-// RegisterForm.js
-import React from 'react';
-import "./App.css"; // Make sure to import your stylesheet
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios'
+  import "./App.css"
 
-function RegisterForm() {
+function Register() {
+  const [values, setValues] = useState({
+    username: '',
+    password: '',
+    profile_name: ''
+  })
+  const navigate = useNavigate()
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    axios.post('http://localhost:8081/register', values)
+      .then(res => {
+        if (res.data.Status === "Success") {
+          navigate('/login')
+        } else {
+          alert("Error")
+        }
+      })
+      .then(err => console.log(err))
+  }
+
   return (
-    <html lang="en" >
-    <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link rel="stylesheet" href="styles.css" />
-      <title>muse.</title> 
-    </head>
-
+    <div>
     <div className="bgimage">
     <div className="menu">
       <div className="leftmenu">
@@ -20,44 +33,37 @@ function RegisterForm() {
     </div>
   </div>
 
-<body>
     <div className="container">
       <div className="center">
         
         <h1>Register</h1>
-        <form method="POST" action="">
-        
-          <div className="txt_field">
-            <input type="text" name="name" required />
-            <span></span>
-            <label>Profile Name</label>
-          </div>
-          <div className="txt_field">
-            <input type="text" name="name" required />
-            <span></span>
-            <label>Username</label>
-          </div>
-          <div className="txt_field">
-            <input type="password" name="password" required />
-            <span></span>
-            <label>Password</label>
-          </div>
-          <div className="txt_field">
-            <input type="password" name="cpassword" required />
-            <span></span>
-            <label>Confirm Password</label>
-          </div>
-          <input name="submit" type="Submit" value="Sign Up" />
+
+        <form onSubmit={handleSubmit}>
+        <div className="txt_field">
+          <label htmlFor="username"><strong>Username</strong></label>
+          <input type="text" placeholder='Enter Username' name="username" id="username" onChange={e => setValues({ ...values, username: e.target.value })} />
+        </div>
+        <div className="txt_field">
+          <label htmlFor="password"><strong>Password</strong></label>
+          <input type="password" placeholder='Enter Password' name="password" id="password" onChange={e => setValues({ ...values, password: e.target.value })} />
+        </div>
+        <div className="txt_field">
+          <label htmlFor="profile_name"><strong>Profile Name</strong></label>
+          <input type="text" placeholder='Enter Profile Name' name='profile_name' id='profile_name' onChange={e => setValues({ ...values, profile_name: e.target.value })} />
+        </div>
+        <div>
+          <button type="submit">Sign Up</button>
           <div className="signup_link">
-            Have an Account? <a href="login">Login Here</a>
+            Have an Account? <Link to="/login">Sign In</Link>
           </div>
-        </form>
+          
+        </div>
+      </form>
       </div>
     </div>
-
-    </body>
-    </html>
-  );
+      
+    </div>
+  )
 }
 
 export default RegisterForm;

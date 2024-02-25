@@ -13,3 +13,4 @@ cookie-parser
 docker
 docker-compose
 
+#scale ต้องมีโน็ตและscale ไม่งั้น query ยาก

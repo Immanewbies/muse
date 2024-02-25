@@ -1,25 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios'
 import "./App.css"
 
-function LoginForm() {
-  return (
-    <html lang="en" >
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles.css" />
-    <title>muse.</title> 
-  </head>
- 
-  <div className="bgimage">
+function Login() {
+    const [values, setValues] = useState({
+        username: '',
+        password: '',
+    })
+    const navigate = useNavigate()
+    axios.defaults.withCredentials = true
+    const handleSubmit = (event) => {
+        event.preventDefault()
+        axios.post('http://localhost:8081/login', values)
+            .then(res => {
+                if (res.data.Status === "Success") {
+                    alert("Login Successful")
+                    navigate('/')
+                } else {
+                    alert(res.data.Error)
+                }
+            })
+            .then(err => console.log(err))
+    }
+
+    return (
+        <div>
+       <div className="bgimage">
       <div className="menu">
         <div className="leftmenu">
           <h4> muse. </h4>
         </div>
       </div>
     </div>
-    
-      <body>
   
         <div className="container">
 
@@ -28,32 +41,27 @@ function LoginForm() {
         
             <h1>Login</h1>
 
-            <form action="" method="POST">
-              <div className="txt_field">
-                <input type="text" name="text" required />
-                <span></span>
-                <label>Username</label>
-              </div>
-
-              <div className="txt_field" type="password">
-                <input type="password" name="password" required />
-                <span></span>
-                <label>Password</label>
-              </div>
-              
-              <div className="pass">Forget Password?</div>
-              
-              <input name="submit" type="Submit" value="Login" />
-              <div className="signup_link">
-                Don't have an account yet? <a href="register">Register</a>
-              </div>
-
+            <form onSubmit={handleSubmit}>
+                <div className="txt_field">
+                    <label htmlFor="username"><strong>Username</strong></label>
+                    <input type="text" placeholder='Enter Username' name='username' id='username' onChange={e => setValues({ ...values, username: e.target.value })} required />
+                </div>
+                <div className="txt_field" type="password">
+                    <label htmlFor="password"><strong>Password</strong></label>
+                    <input type="password" placeholder='Enter Password' name="password" id="password" onChange={e => setValues({ ...values, password: e.target.value })} />
+                </div>
+                <div>
+                    <button type="submit">Sign In</button>
+                    <div className="signup_link">Don't have an account yet? 
+                      <Link to="/register">Sign Up</Link>
+                    </div>
+                </div>
             </form>
           </div>
         </div>
-      </body>
-    </html>
-  );
+            
+        </div>
+    )
 }
 
-export default LoginForm;
+export default Login
