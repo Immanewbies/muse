@@ -55,7 +55,7 @@ app.get('/', verifyUser, (req, res) => {
 app.post('/register', (req, res) => {
     const sql = "INSERT INTO user (`username`,`password`,`profile_name`) VALUES (?)";
     bcrypt.hash(req.body.password.toString(), salt, (err, hash) => {
-        if (err) return res.json({ Error: "Error for hashing password" });
+        if (err) return res.json({ Error: err });
         const values = [
             req.body.username,
             hash,
@@ -215,7 +215,6 @@ app.post('/user/score', (req, res) => {
                         req.body.score,
                         currentDateTime
                     ]
-                    console.log(values)
                     db.query(sql, [values], (err, results) => {
                         if (err) return res.json({ Error: "Inserting data error in server" });
                         return res.json({ Status: "Success" });
