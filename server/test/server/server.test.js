@@ -67,7 +67,7 @@ describe('Server Tests', () => {
       .post('/chord/findchord')
       .send({
         chord_note: 'C',
-        chord_tension: 'major',
+        chord_tension: 'Major',
       });
     expect(res.status).to.equal(200);
     console.log(res.body)
@@ -79,7 +79,7 @@ describe('Server Tests', () => {
       .post('/scale/findscale')
       .send({
         scale_note: 'C',
-        scale_tension: 'major',
+        scale_tension: 'Major',
       });
     expect(res.status).to.equal(200);
     expect(res.body).to.be.an('array');
