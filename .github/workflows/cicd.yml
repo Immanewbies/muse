@@ -51,7 +51,7 @@ jobs:
         run: npm test
         working-directory: server
         env:
-          EC2_HOST: localhost
+          EC2_HOST: 127.0.0.1
           DB_USER: root
           DB_PWD: ""
           DB_DB: "muse"
