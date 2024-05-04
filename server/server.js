@@ -195,8 +195,6 @@ app.post('/user/score', (req, res) => {
     db.query(sqlProfile, [req.body.profile_name], (err, results) => {
         if (err) return res.json({ Error: "No user found in server" });
         else {
-            console.log(results)
-            console.log(results[0].user_id)
             const userid = results[0].user_id;
             const sqlQSid = `
             SELECT QS.quiz_set_id
@@ -211,7 +209,6 @@ app.post('/user/score', (req, res) => {
                 if (err) return res.json({ Error: "Can't find quiz id" });
                 else {
                     const quizsetid = results[0].quiz_set_id;
-                    console.log(quizsetid)
                     const sql = "INSERT INTO score (`user_id`,`quiz_set_id`,`score`,`submit_date`) VALUES (?)";
                     const values = [
                         userid,

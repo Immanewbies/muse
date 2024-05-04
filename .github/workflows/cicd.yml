@@ -57,6 +57,7 @@ jobs:
           DB_USER: root
           DB_PWD: ""
           DB_DB: "muse"
+          SALT: 10
 
   cd:
     needs: [ci]
