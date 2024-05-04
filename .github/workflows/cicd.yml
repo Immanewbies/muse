@@ -35,8 +35,6 @@ jobs:
         run: |
           docker run --network server --ip 10.2.0.2 -e MYSQL_ROOT_PASSWORD="123456" --name mydb -d mysql:5.7
           docker ps -a
-          touch setup
-          sudo service mysql start
           docker exec -i mydb mysql -e "CREATE DATABASE muse" -p123456
           docker exec -i mydb mysql -e "FLUSH PRIVILEGES" -p123456
           docker exec -i mydb mysql -u root -p123456 muse < ./database/muse.sql
