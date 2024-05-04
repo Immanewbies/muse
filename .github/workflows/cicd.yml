@@ -30,7 +30,13 @@ jobs:
           node-version: '18.x'
 
       - name: Setup Environment for testing
-        run: docker exec mysql mysqladmin -uroot muse < ./database/muse.sql
+        run: |
+          until docker exec mysql mysqladmin ping --silent; do
+              echo 'Waiting for MySQL...'
+              sleep 1
+          done
+          docker exec mysql mysql -uroot muse < ./database/muse.sql
+
 
       - name: Install client dependencies
         run: npm install
