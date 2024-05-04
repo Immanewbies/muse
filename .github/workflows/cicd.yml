@@ -11,6 +11,7 @@ jobs:
       mysql:
         image: mysql:latest
         env:
+          DB_USER: root
           MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
           MYSQL_DATABASE: muse
         ports:
@@ -28,15 +29,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18.x'
-
-      - name: Setup Environment for testing
-        run: |
-          # Wait for MySQL to be ready
-          while ! mysqladmin ping -h"127.0.0.1" --silent; do
-              sleep 1
-          done
-          # Import the SQL data into the MySQL database
-          mysql -h 127.0.0.1 -u root --password="" muse < ./database/muse.sql
 
       - name: Set up environment variables
         run: |

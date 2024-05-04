@@ -53,6 +53,7 @@ app.get('/', verifyUser, (req, res) => {
 })
 
 app.post('/register', (req, res) => {
+    console.log(req)
     const sql = "INSERT INTO user (`username`,`password`,`profile_name`) VALUES (?)";
     bcrypt.hash(req.body.password.toString(), salt, (err, hash) => {
         if (err) return res.json({ Error: "Error for hashing password" });
@@ -69,6 +70,7 @@ app.post('/register', (req, res) => {
 })
 
 app.post('/login', (req, res) => {
+    console.log(req)
     const sql = "SELECT * FROM user WHERE username = ?";
     db.query(sql, [req.body.username], (err, data) => {
         if (err) return res.json({ Error: "Login error in server" });
@@ -96,6 +98,7 @@ app.get('/logout', (req, res) => {
 })
 
 app.post('/chord/findchord', (req, res) => {
+    console.log(req)
     let sql = "SELECT * FROM chord WHERE 1=1";
     const params = [];
 
@@ -117,6 +120,7 @@ app.post('/chord/findchord', (req, res) => {
 
 
 app.post('/scale/findscale', (req, res) => {
+    console.log(req)
     let sql = "SELECT * FROM scale WHERE 1=1";
     const params = [];
 
@@ -137,6 +141,7 @@ app.post('/scale/findscale', (req, res) => {
 })
 
 app.post('/eartrain/question', (req, res) => {
+    console.log(req)
     const sql = `
     SELECT E.eartrain_text, E.quiz1, E.quiz2, E.quiz3, E.quiz4, E.quiz5
     FROM Eartrain E
@@ -171,6 +176,7 @@ app.get('/eartrain/chord', (req, res) => {
 })
 
 app.post('/quiz/question', (req, res) => {
+    console.log(req)
     const sql = `
     SELECT Q.question_text, Q.option1, Q.option2, Q.option3, Q.option4, Q.ans	
     FROM Question Q
@@ -189,6 +195,7 @@ app.post('/quiz/question', (req, res) => {
 })
 
 app.post('/user/score', (req, res) => {
+    console.log(req)
     console.log(req.body)
     const sqlProfile = "SELECT user_id FROM user WHERE profile_name = ?";
     const currentDateTime = moment().format('YYYY-MM-DD HH:mm:ss');
@@ -232,6 +239,7 @@ app.post('/user/score', (req, res) => {
 })
 
 app.post('/user/getscore', (req, res) => {
+    console.log(req)
     const sql = "SELECT user_id FROM user WHERE profile_name = ?";
     db.query(sql, [req.body.profile_name], (err, results) => {
         if (err) return res.json({ Error: "No user found in server" });
