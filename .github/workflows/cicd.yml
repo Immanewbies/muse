@@ -47,7 +47,7 @@ jobs:
           done
 
       - name: Import database
-        run: docker exec mysql mysql --user=root --password="" --host=127.0.0.1 muse < ./database/muse.sql
+        run: mysql --user=root --password="" --host=127.0.0.1 muse < ./database/muse.sql
 
       - name: Run server tests
         run: npm test
