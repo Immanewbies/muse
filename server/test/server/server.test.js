@@ -20,6 +20,10 @@ describe('Server Tests', () => {
   });
 
   it('should return status 200 and success message for POST /register', async () => {
+    process.env.SALT = 10; // Ensure this is the number of rounds for salt
+    process.env.DB_USER = "root";
+    process.env.DB_PWD = "";
+    process.env.DB_DB = "muse";
     const res = await request(server)
       .post('/register')
       .send({
