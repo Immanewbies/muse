@@ -47,21 +47,7 @@ jobs:
           done
 
       - name: Import database
-        run: mysql --user=root --password="" --host=127.0.0.1 muse < ./database/muse.sql
-
-      - name: Display all data from database
-        run: |
-          mysql --user=root --password="" --host=127.0.0.1 --database=muse --execute="SELECT * FROM User;"
-          mysql --user=root --password="" --host=127.0.0.1 --database=muse --execute="SELECT * FROM Category;"
-          mysql --user=root --password="" --host=127.0.0.1 --database=muse --execute="SELECT * FROM Difficulty;"
-          mysql --user=root --password="" --host=127.0.0.1 --database=muse --execute="SELECT * FROM Note;"
-          mysql --user=root --password="" --host=127.0.0.1 --database=muse --execute="SELECT * FROM Chord;"
-          mysql --user=root --password="" --host=127.0.0.1 --database=muse --execute="SELECT * FROM Scale;"
-          mysql --user=root --password="" --host=127.0.0.1 --database=muse --execute="SELECT * FROM Quiz;"
-          mysql --user=root --password="" --host=127.0.0.1 --database=muse --execute="SELECT * FROM NoteChordMapping;"
-          mysql --user=root --password="" --host=127.0.0.1 --database=muse --execute="SELECT * FROM Score;"
-          mysql --user=root --password="" --host=127.0.0.1 --database=muse --execute="SELECT * FROM Question;"
-          mysql --user=root --password="" --host=127.0.0.1 --database=muse --execute="SELECT * FROM Eartrain;"
+        run: docker exec mysql mysql --user=root --password="" --host=127.0.0.1 muse < ./database/muse.sql
 
       - name: Run server tests
         run: npm test
