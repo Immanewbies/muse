@@ -41,17 +41,6 @@ jobs:
           docker exec mydb mysql -uroot -p123456 -e "FLUSH PRIVILEGES"
           docker exec mydb mysql -uroot -p123456 muse < /home/runner/work/muse/muse/database/muse.sql
           echo 'Started service'
-          docker exec -it mydb mysql -uroot -p123456 -e "SELECT * FROM User" muse
-          docker exec -it mydb mysql -uroot -p123456 -e "SELECT * FROM Category" muse
-          docker exec -it mydb mysql -uroot -p123456 -e "SELECT * FROM Difficulty" muse
-          docker exec -it mydb mysql -uroot -p123456 -e "SELECT * FROM Note" muse
-          docker exec -it mydb mysql -uroot -p123456 -e "SELECT * FROM Chord" muse
-          docker exec -it mydb mysql -uroot -p123456 -e "SELECT * FROM Scale" muse
-          docker exec -it mydb mysql -uroot -p123456 -e "SELECT * FROM Quiz" muse
-          docker exec -it mydb mysql -uroot -p123456 -e "SELECT * FROM NoteChordMapping" muse
-          docker exec -it mydb mysql -uroot -p123456 -e "SELECT * FROM Score" muse
-          docker exec -it mydb mysql -uroot -p123456 -e "SELECT * FROM Question" muse
-          docker exec -it mydb mysql -uroot -p123456 -e "SELECT * FROM Eartrain" muse
 
       - name: Run server tests
         run: npm test
