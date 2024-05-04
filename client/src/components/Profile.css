@@ -1,0 +1,139 @@
+ .p h1 {
+    text-align: center;
+    color: white;
+    font-size: 54px;
+    
+}
+
+.p .container {
+    top: 45%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+}
+
+.ui-widgets {
+    position: relative;
+    display: inline-block;
+    width: 15rem;
+    height: 15rem;
+    border-radius: 13.5rem;
+    margin: 2.25rem;
+    border: 2.25rem solid #4D2DB7;
+    box-shadow: inset 0 0 7px grey;
+    border-left-color: #4D2DB7;
+    border-top-color: #4D2DB7;
+    border-right-color: #4D2DB7;
+    border-bottom-color: white;
+    text-align: center;
+    box-sizing: border-box;
+    margin: 50px auto 3vh;
+    margin-left: 1vh;
+    
+}
+
+.ui-widgets:nth-child(2) {
+    border-top-color: #4D2DB7;
+    border-right-color: #4D2DB7;
+    border-left-color: #4D2DB7;
+    border-bottom-color: white;
+}
+
+
+.ui-widgets .ui-values {
+    top: 40%;
+    position: absolute;
+    left: 10px;
+    right: 0;
+    font-weight: 700;
+    font-size: 2.0rem;
+    color: white;
+    
+
+
+}
+
+
+.ui-widgets .ui-labels {
+
+    
+    left: 0;
+    bottom: -25px;
+    text-shadow: 0 0 4px grey;
+    color: black;
+    position: absolute;
+    width: 100%;
+    font-size: 18px;
+}
+
+
+.table-container {
+    max-height: 100px;
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden; /* Hide horizontal scrollbar */
+}
+
+table {
+    width: 50%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    text-align: center;
+    background-color: #f2f2f2;
+    width: 80vh;
+    overflow: hidden;
+    border-radius: 10px; /* Adding border radius */
+}
+
+/* Style the table header */
+thead {
+    background-color: #f2f2f2;
+}
+
+thead th {
+    padding: 10px;
+    font-weight: bold;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Style the table body */
+tbody th {
+    padding: 10px;
+}
+
+/* Alternate row color */
+tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Hover effect */
+tbody tr:hover {
+    background-color: #ddd;
+}
+
+/* Responsive table */
+@media screen and (max-width: 600px) {
+    table {
+        border: 0;
+    }
+
+    thead {
+        display: none;
+    }
+
+    tbody th {
+        display: block;
+        width: 100%;
+        text-align: left;
+    }
+
+    tbody td {
+        display: block;
+        width: 100%;
+        text-align: right;
+    }
+}

@@ -1,0 +1,19 @@
+.t  button{
+  
+    margin:auto;
+    width: 250px;
+    height: 65px;
+    border: 1px solid;
+    border-radius: 25px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    background: whitesmoke;
+}
+.t button:hover{
+  
+    background: linear-gradient(159deg, #1E1E1E 0%, #4D2DB7 100%);
+    color: whitesmoke;
+    transition: .5s;
+  }
+  

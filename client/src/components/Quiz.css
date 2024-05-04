@@ -1,0 +1,103 @@
+.q .container {
+    width: 70vh;
+    max-width: 640px;
+    margin: auto; /* Center horizontally */
+    position: absolute;
+    top: 50%; /* Center vertically */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    border-radius: 25px;
+    padding: 25px 50px;
+}
+
+
+
+
+.q .container hr{
+
+    height: 2px;
+    border: none;
+    background: #707070;
+
+
+}
+.q .container h2{
+
+    font-size:27 px;
+    font-weight: 500;
+}
+.q .container ul li{
+    display: flex;
+    align-items: center;
+    height: 70px;
+    padding-left: 15px;
+    border: 1px solid #686868;
+    border-radius: 25px;
+    margin-bottom: 20px;
+    font-size: 20px;
+    cursor: pointer;
+
+}
+.q .container ul li:hover{
+    background: linear-gradient(159deg, #1E1E1E 0%, #4D2DB7 100%);
+    color: #e9f4fb;
+    transition: .5s;
+
+}
+.q .container button{
+  
+    margin:auto;
+    width: 250px;
+    height: 65px;
+    border: 1px solid;
+    border-radius: 25px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+}
+.q .container button:hover{
+  
+    background: linear-gradient(159deg, #1E1E1E 0%, #4D2DB7 100%);
+    color: #e9f4fb;
+    transition: .5s;
+  }
+  
+
+.q .container .index{
+    margin: auto;
+    font-size: 18px;
+}
+.q .container .correct {
+    background: linear-gradient(159deg, green 0%, #1E1E1E 100%);
+    color: #e9f4fb;
+
+     font-weight: 500;
+}
+.q .container .wrong {
+  
+    
+    background: linear-gradient(159deg, red 0%, #1E1E1E 100%);
+    color: #e9f4fb;
+
+    font-weight: 500;
+}
+
+
+.q .txt_circle {
+    background: black;
+    border-color: black;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 4.5rem;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 20px;
+    
+}

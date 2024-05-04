@@ -1,0 +1,185 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap');
+.m * {
+    margin: 0;
+    padding: 0;
+}
+
+.m body {
+    font-family: 'Raleway', sans-serif;
+    color: #525252;
+    user-select: none;
+}
+.m .container {
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30vh;
+    font-family: 'Raleway', sans-serif;
+    color: #525252;
+    user-select: none;
+    
+}
+.m .metronome {
+    display: flex;
+    flex-direction: column;
+    width: 120px;
+    height: 160px;
+    justify-content: space-between;
+}
+.m .bpm-display {
+    width: 100%;
+    text-align: center;
+    color: #4D2DB7; 
+    font-weight: bold;
+}
+.m .bpm-display .tempo {
+    font-size: 2em;
+}
+.m .tempo-text {
+    font-size: .6em;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.m .tempo-settings {
+    display: flex;
+    justify-content: space-between;
+}
+
+.m .tempo-settings .adjust-tempo-btn {
+    width: 20px;
+    height: 20px;
+    font-size: 20px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    text-align: center;
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+
+   
+
+}
+.m .tempo-settings .adjust-tempo-btn:hover {
+    background: linear-gradient(159deg, #1E1E1E 0%, #4D2DB7 100%);
+    color: #e9f4fb;
+    transition: .5s;
+}
+.m .tempo-settings .decrease-tempo {
+    line-height: 25px;
+}
+.m .tempo-settings .increase-tempo {
+    line-height: 32px;
+}
+
+.m input[type=range] {
+    -webkit-appearance: none;
+    background-color: transparent;
+    width: 70%;
+}
+.m input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+}
+.m input[type=range]:focus {
+    outline: none;
+}
+
+.m input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #4D2DB7;
+    cursor: pointer;
+    margin-top: -8px;
+}
+.m input[type=range]::-moz-range-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #4D2DB7;
+    cursor: pointer;
+    border: none;
+}
+
+.m input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 1px;
+    background: #ddd;
+}
+
+.m input[type=range]::-moz-range-track {
+    width: 100%;
+    height: 1px;
+    background: #ddd;
+}
+
+.m .start-stop {
+    width: 40px;
+    height: 40px;
+    font-size: 0.6em;
+    text-align: center;
+    background: linear-gradient(159deg, #1E1E1E 0%, #4D2DB7 100%);
+    border-radius: 50%;
+    color: #fff;
+    line-height: 50px;
+    margin: 0 auto;
+    cursor: pointer;
+    text-align: center;
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+
+}
+
+.m .start-stop:hover {
+    background: linear-gradient(159deg, #1E1E1E 0%, #4D2DB7 100%);
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+      box-shadow: 0 0px 10px 3px #222;
+}
+.m .measures {
+    display: flex;
+    justify-content: center;
+}
+.m .measures .stepper {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+    text-align: center;
+    margin: 0 5px;
+    cursor: pointer;
+}
+.m .measures .stepper:hover {
+    background: linear-gradient(159deg, #1E1E1E 0%, #4D2DB7 100%);
+    color: #e9f4fb;
+    transition: .5s;
+}
+.m .measures .add-beats {
+    line-height: 20px;
+}
+
+.m.beats-per-measure-text {
+    text-align: center;
+    font-size: 0.5em;
+    text-transform: uppercase;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

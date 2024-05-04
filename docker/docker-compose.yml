@@ -1,0 +1,34 @@
+version: '3.8'
+services:
+  db:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: ""
+      MYSQL_DATABASE: muse
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./database/muse.sql:/docker-entrypoint-initdb.d/muse.sql
+    restart: on-failure
+  backend:
+    image: node:latest
+    working_dir: /server
+    volumes:
+      - ./server:/server
+    ports:
+      - "8081:8081"
+    depends_on:
+      - db
+    restart: on-failure
+    command: npm start
+  frontend:
+    image: node:latest
+    working_dir: /app
+    volumes:
+      - ./client:/app
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    restart: on-failure
+    command: npm start

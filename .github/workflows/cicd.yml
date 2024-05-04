@@ -1,0 +1,70 @@
+name: muse ci-cd
+run-name: ${{ github.actor }} is testing on prod
+on:
+  push:
+    branches:    
+      - main
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:latest
+        env:
+          MYSQL_ROOT_PASSWORD: ""
+          MYSQL_DATABASE: muse
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd "mysqladmin ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+     - name: Check out repository code
+        uses: actions/checkout@v3
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+
+      - name: Setup Environment for testing
+        run: |
+          docker exec mysql_container mysql -uroot muse < ./database/muse.sql
+
+      - name: Install client dependencies
+        run: npm install
+        working-directory: client
+
+      - name: Run client tests
+        run: npm test
+        working-directory: client
+
+      - name: Install server dependencies
+        run: npm install
+        working-directory: server
+
+      - name: Run server tests
+        run: npm test
+        working-directory: server
+
+  cd:
+    need: [ci]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up SSH key
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 400 ~/.ssh/id_rsa
+          
+      - name: Deploy to AWS EC2
+        env:
+          PUB_DNS: ${{ secret.EC2_PUB_DNS }}
+        run: |
+          ssh -i ~/.ssh/id_rsa ec2-user@$PUB_DNS "docker-compose -f /home/ec2-user/myapp/docker-compose.yml up -d"
+
+      

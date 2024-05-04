@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { React, useState, useEffect } from 'react'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import axios from 'axios'
 import "./App.css"
+import { serverUrl } from './global/constants.js';
 
 function Login() {
     const [values, setValues] = useState({
@@ -9,14 +10,27 @@ function Login() {
         password: '',
     })
     const navigate = useNavigate()
+    const location = useLocation()
+    const [previousLocation, setPreviousLocation] = useState(null)
     axios.defaults.withCredentials = true
+
+    useEffect(() => {
+        if (location.state && location.state.from) {
+          setPreviousLocation(location.state.from)
+        }
+      }, [location.state])
+
     const handleSubmit = (event) => {
         event.preventDefault()
-        axios.post('http://localhost:8081/login', values)
+        axios.post(`${serverUrl}/login`, values)
             .then(res => {
                 if (res.data.Status === "Success") {
                     alert("Login Successful")
-                    navigate('/')
+                    if (previousLocation) {
+                        navigate(previousLocation)
+                      } else {
+                        navigate('/')
+                      }
                 } else {
                     alert(res.data.Error)
                 }
@@ -26,41 +40,41 @@ function Login() {
 
     return (
         <div>
-       <div className="bgimage">
-      <div className="menu">
-        <div className="leftmenu">
-          <h4> muse. </h4>
-        </div>
-      </div>
-    </div>
-  
-        <div className="container">
-
-          <div className="center">
-                
-        
-            <h1>Login</h1>
-
-            <form onSubmit={handleSubmit}>
-                <div className="txt_field">
-                    <label htmlFor="username"><strong>Username</strong></label>
-                    <input type="text" placeholder='Enter Username' name='username' id='username' onChange={e => setValues({ ...values, username: e.target.value })} required />
-                </div>
-                <div className="txt_field" type="password">
-                    <label htmlFor="password"><strong>Password</strong></label>
-                    <input type="password" placeholder='Enter Password' name="password" id="password" onChange={e => setValues({ ...values, password: e.target.value })} />
-                </div>
-                <div>
-                    <button type="submit">Sign In</button>
-                    <div className="signup_link">Don't have an account yet? 
-                      <Link to="/register">Sign Up</Link>
-                    </div>
-                </div>
-            </form>
+        <div className="menu">
+          <div className="leftmenu">
+            <h4> muse. </h4>\
           </div>
-        </div>
-            
-        </div>
+      </div>
+      
+          <div className="container">
+          <div className="center">
+                  
+          
+              <h1>Login</h1>
+  
+              <form onSubmit={handleSubmit} action="" method="POST" >
+                  <div className="txt_field">
+                      <input type="text"name='username' id='username' onChange={e => setValues({ ...values, username: e.target.value })} required />
+                      <span></span>
+                      <label htmlFor="username">Username</label>
+                  </div>
+  
+                  <div className="txt_field" >
+                      <input type="password"  name='password' id='password' onChange={e => setValues({ ...values, password: e.target.value })} required/>
+                      <span></span>
+                      <label htmlFor="password">Password</label>
+                  </div>
+                 
+                  <div className="pass">Forget Password?</div>
+  
+                  <input name="submit" type="Submit" value="Login" />
+                <div className="signup_link">
+                  Don't have an account yet? <Link to="/register">Sign up</Link>
+                </div>
+              </form>
+            </div>
+          </div>
+          </div>
     )
 }
 
