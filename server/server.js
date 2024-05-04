@@ -6,14 +6,14 @@ import bcrypt from 'bcrypt';
 import cookieParser from 'cookie-parser';
 import moment from 'moment';
 import os from 'os';
-const port = process.env.PORT || 8081
-const salt = process.env.SALT || 10
-const Host = process.env.EC2_HOST
-const ipV4 = process.env.EC2_IPV4
-const User = process.env.DB_USER || "root"
-const Pwd = process.env.DB_PWD|| ""
-const DB = process.env.DB_DB || "muse"
-const Address = Host || "http://localhost:3000"
+const port = process.env.PORT || 8081;
+const salt = process.env.SALT || 10;
+const Host = process.env.EC2_HOST;
+const ipV4 = process.env.EC2_IPV4;
+const User = process.env.DB_USER || "root";
+const Pwd = process.env.DB_PWD|| "";
+const DB = process.env.DB_DB || "muse";
+const Address = Host || "http://localhost:3000";
 
 const app = express();
 app.use(express.json());
@@ -55,7 +55,7 @@ app.get('/', verifyUser, (req, res) => {
 app.post('/register', (req, res) => {
     const sql = "INSERT INTO user (`username`,`password`,`profile_name`) VALUES (?)";
     bcrypt.hash(req.body.password.toString(), salt, (err, hash) => {
-        if (err) return res.json({ Error: err });
+        if (err) return res.json({ Error: "Error for hashing password" });
         const values = [
             req.body.username,
             hash,
