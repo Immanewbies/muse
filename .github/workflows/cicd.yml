@@ -28,13 +28,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18.x'
-
-      - name: Get MySQL logs
-        run: docker logs mysql
-
+          
       - name: Start MySQL service
         run: sudo service mysql start
-        
+
       - name: Setup Environment for testing
         run: docker exec mysql mysql -uroot muse < ./database/muse.sql
 
