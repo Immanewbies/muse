@@ -70,8 +70,11 @@ jobs:
           mkdir -p ~/.ssh
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
           chmod 400 ~/.ssh/id_rsa
-          
+      - name: Print PUB_DNS
+        run: echo "PUB_DNS is $PUB_DNS"
+        env:
+          PUB_DNS: ${{ secrets.EC2_PUB_DNS }}
       - name: Deploy to AWS EC2
         env:
-          EC2_HOST: ${{ secrets.EC2_HOST }}
-        run: ssh -i ~/.ssh/id_rsa ec2-user@$EC2_HOST "docker-compose -f /home/ec2-user/myapp/docker-compose.yml up -d"
+          PUB_DNS: ${{ secrets.EC2_PUB_DNS }}
+        run: ssh -i ~/.ssh/id_rsa ec2-user@$PUB_DNS "docker-compose -f /home/ec2-user/myapp/docker-compose.yml up -d"
