@@ -54,7 +54,7 @@ app.get('/', verifyUser, (req, res) => {
 
 app.post('/register', (req, res) => {
     const sql = "INSERT INTO user (`username`,`password`,`profile_name`) VALUES (?)";
-    bcrypt.hash(req.body.password.toString(), salt, (err, hash) => {
+    bcrypt.hash(req.body.password, salt, (err, hash) => {
         if (err) return res.json({ Error: "Error for hashing password" });
         const values = [
             req.body.username,

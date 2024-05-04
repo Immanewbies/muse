@@ -23,9 +23,9 @@ describe('Server Tests', () => {
     const res = await request(server)
       .post('/register')
       .send({
-        username: 'testuser',
-        password: 'testpassword',
-        profile_name: 'Test User',
+        username: 'tt',
+        password: '123',
+        profile_name: 'User',
       });
     expect(res.status).to.equal(200);
     expect(res.body).to.have.property('Status', 'Success');
