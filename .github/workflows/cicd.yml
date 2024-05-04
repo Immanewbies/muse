@@ -30,13 +30,6 @@ jobs:
         with:
           node-version: '18.x'
 
-      - name: Set up environment variables
-        run: |
-          echo "DB_HOST=localhost" >> $GITHUB_ENV
-          echo "DB_USER=root" >> $GITHUB_ENV
-          echo "DB_PWD=password" >> $GITHUB_ENV
-          echo "DB_DB=muse" >> $GITHUB_ENV
-
       - name: Install client dependencies
         run: npm install
         working-directory: client
@@ -54,8 +47,7 @@ jobs:
         working-directory: server
         env:
           NODE_ENV: test
-          DB_HOST: 127.0.0.1
-          DB_PORT: 3306
+          EC2_HOST: 127.0.0.1
           DB_USER: root
           DB_PASSWORD: ""
           DB_DATABASE: "muse"
