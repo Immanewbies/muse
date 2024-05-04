@@ -33,7 +33,7 @@ jobs:
 
       - name: Start Mysql
         run: |
-          docker run --network server --ip 10.2.0.2 -e MYSQL_ROOT_PASSWORD="" --name mydb -d mysql:latest
+          docker run --network server --ip 10.2.0.2 -e MYSQL_ROOT_PASSWORD="" --name mydb -d mysql:5.7
           docker ps -a
           touch setup
           sudo service mysql start
