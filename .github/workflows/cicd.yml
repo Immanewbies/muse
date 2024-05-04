@@ -10,7 +10,6 @@ jobs:
     services:
       mysql:
         image: mysql:latest
-        container_name: mysql_container
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
           MYSQL_DATABASE: muse
@@ -31,7 +30,7 @@ jobs:
           node-version: '18.x'
 
       - name: Setup Environment for testing
-        run: docker exec mysql_container mysql -uroot muse < ./database/muse.sql
+        run: docker exec mysql mysql -uroot muse < ./database/muse.sql
 
       - name: Install client dependencies
         run: npm install
