@@ -189,7 +189,6 @@ app.post('/quiz/question', (req, res) => {
 })
 
 app.post('/user/score', (req, res) => {
-    console.log(req.body)
     const sqlProfile = "SELECT user_id FROM user WHERE profile_name = ?";
     const currentDateTime = moment().format('YYYY-MM-DD HH:mm:ss');
     db.query(sqlProfile, [req.body.profile_name], (err, results) => {
