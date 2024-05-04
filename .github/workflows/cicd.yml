@@ -61,7 +61,7 @@ jobs:
 
   cd:
     needs: [ci]
-    runs-on: ubuntu-latest
+    runs-on: amazon-linux-2
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
