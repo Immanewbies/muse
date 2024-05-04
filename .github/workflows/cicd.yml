@@ -76,4 +76,4 @@ jobs:
       - name: Deploy to AWS EC2
         env:
           PUB_DNS: ${{ secrets.EC2_PUB_DNS }}
-        run: ssh -i ~/.ssh/id_rsa ec2-user@$PUB_DNS "docker-compose -f /home/ec2-user/myapp/docker-compose.yml up -d"
+        run: ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-user@$PUB_DNS "docker-compose -f /home/ec2-user/myapp/docker-compose.yml up -d"
