@@ -9,9 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     services:
       mysql:
-        image: mysql:latest
+        image: mysql:5.7
         env:
-          MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+          MYSQL_ROOT_PASSWORD: ""
           MYSQL_DATABASE: muse
         ports:
           - 3306:3306
@@ -36,6 +36,15 @@ jobs:
       - name: Install server dependencies
         run: npm install
         working-directory: server
+
+      - name: Wait for MySQL to be ready
+        run: |
+          until mysqladmin ping -h"127.0.0.1" --silent; do
+            echo 'Waiting for MySQL to be ready...'
+            sleep 1
+          done
+        env:
+          MYSQL_ROOT_PASSWORD: ""
 
       - name: Run server tests
         run: npm test
