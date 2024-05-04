@@ -39,7 +39,7 @@ jobs:
           sleep 15
           docker exec mydb mysql -uroot -p123456 -e "CREATE DATABASE IF NOT EXISTS muse" 
           docker exec mydb mysql -uroot -p123456 -e "FLUSH PRIVILEGES"
-          docker exec mydb mysql -uroot -p123456 muse < ./database/muse.sql
+          docker exec mydb mysql -uroot -p123456 muse < /home/runner/work/muse/muse/database/muse.sql
           echo 'Started service'
           docker exec -it mydb mysql -uroot -p123456 -e "SELECT * FROM User" muse
           docker exec -it mydb mysql -uroot -p123456 -e "SELECT * FROM Category" muse
