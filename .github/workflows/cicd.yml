@@ -52,6 +52,13 @@ jobs:
       - name: Run server tests
         run: npm test
         working-directory: server
+        env:
+          NODE_ENV: test
+          DB_HOST: 127.0.0.1
+          DB_PORT: 3306
+          DB_USER: root
+          DB_PASSWORD: ""
+          DB_DATABASE: "muse"
 
   cd:
     needs: [ci]
