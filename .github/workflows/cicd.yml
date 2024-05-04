@@ -33,13 +33,13 @@ jobs:
 
       - name: Start Mysql
         run: |
-          docker run --network server --ip 10.2.0.2 -e MYSQL_ROOT_PASSWORD="" --name mydb -d mysql:5.7
+          docker run --network server --ip 10.2.0.2 -e MYSQL_ROOT_PASSWORD="123456" --name mydb -d mysql:5.7
           docker ps -a
           touch setup
           sudo service mysql start
-          docker exec -i mydb mysql -e "CREATE DATABASE muse"
-          docker exec -i mydb mysql -e "FLUSH PRIVILEGES"
-          docker exec -i mydb mysql -u root muse < ./database/muse.sql
+          docker exec -i mydb mysql -e "CREATE DATABASE muse" -p123456
+          docker exec -i mydb mysql -e "FLUSH PRIVILEGES" -p123456
+          docker exec -i mydb mysql -u root -p123456 muse < ./database/muse.sql
           echo 'Started service'
 
       - name: Run server tests
@@ -48,7 +48,7 @@ jobs:
         env:
           EC2_HOST: 10.2.0.2
           DB_USER: root
-          DB_PWD: ""
+          DB_PWD: 123456
           DB_DB: "muse"
           SALT: 10
 
