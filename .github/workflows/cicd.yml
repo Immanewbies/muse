@@ -43,8 +43,6 @@ jobs:
         working-directory: client
 
       - name: Run client tests
-        env:
-          EC2_HOST: 127.0.0.1
         run: npm test
         working-directory: client
 
@@ -53,6 +51,8 @@ jobs:
         working-directory: server
 
       - name: Run server tests
+        env:
+          EC2_HOST: 127.0.0.1
         run: npm test
         working-directory: server
 
