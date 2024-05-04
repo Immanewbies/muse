@@ -7,17 +7,6 @@ on:
 jobs:
   ci:
     runs-on: ubuntu-latest
-    services:
-      mysql:
-        image: mysql:5.7
-        env:
-          MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-          MYSQL_ROOT_PASSWORD: ""
-          MYSQL_DATABASE: muse
-        ports:
-          - 3306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5
-
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
@@ -39,21 +28,25 @@ jobs:
         run: npm install
         working-directory: server
 
-      - name: Wait for MySQL to be ready
-        run: |
-          until mysqladmin ping -h"127.0.0.1" --silent; do
-            echo 'Waiting for MySQL to be ready...'
-            sleep 1
-          done
+      - name: Setup docker network
+        run: docker network create --subnet=10.2.0.0/16 server
 
-      - name: Import database
-        run: mysql --user=root --password="" --host=127.0.0.1 muse < ./database/muse.sql
+      - name: Start Mysql
+        run: |
+          docker run --network server --ip 10.2.0.2 -e MYSQL_ROOT_PASSWORD="" --name mydb -d mysql:latest
+          docker ps -a
+          touch setup
+          sudo service mysql start
+          docker exec -i mydb mysql -e "CREATE DATABASE muse"
+          docker exec -i mydb mysql -e "FLUSH PRIVILEGES"
+          docker exec -i mydb mysql -u root muse < ./database/muse.sql
+          echo 'Started service'
 
       - name: Run server tests
         run: npm test
         working-directory: server
         env:
-          EC2_HOST: 127.0.0.1
+          EC2_HOST: 10.2.0.2
           DB_USER: root
           DB_PWD: ""
           DB_DB: "muse"

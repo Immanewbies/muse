@@ -70,7 +70,6 @@ describe('Server Tests', () => {
         chord_tension: 'Major',
       });
     expect(res.status).to.equal(200);
-    console.log(res.body)
     expect(res.body).to.be.an('array');
   });
 
