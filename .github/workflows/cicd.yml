@@ -66,17 +66,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Log into Docker Hub
-        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Build and push Docker images
+      - name: Build Docker images
         run: |
           docker-compose build
-          docker-compose push
         working-directory: docker
 
       - name: Docker Up
         run: |
-          docker-compose pull
           docker-compose up -d
 
