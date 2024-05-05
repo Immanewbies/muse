@@ -2,30 +2,47 @@ version: '3.8'
 services:
   db:
     image: mysql:latest
+    container_name: mysql-db
     environment:
-      MYSQL_ROOT_PASSWORD: ""
+      MYSQL_USER: new
+      MYSQL_PASSWORD: 123
+      MYSQL_ROOT_PASSWORD: 123
       MYSQL_DATABASE: muse
     ports:
       - "3306:3306"
     volumes:
       - ./database/muse.sql:/docker-entrypoint-initdb.d/muse.sql
     restart: on-failure
-  backend:
-    image: node:latest
-    working_dir: /server
-    volumes:
-      - ./server:/server
+  server:
+    build: ./server
+    environment:
+      EC2_API: 54.251.92.137:8081
+      PORT: 8081
+      SALT: 10
+      EC2_HOST: ec2-54-251-92-137.ap-southeast-1.compute.amazonaws.com:3000
+      EC2_IPV4: 54.251.92.137:3000
+      DB_HOST: db
+      DB_USER: new
+      DB_PWD: 123
+      DB_DB: muse
     ports:
       - "8081:8081"
     depends_on:
       - db
     restart: on-failure
     command: npm start
-  frontend:
-    image: node:latest
-    working_dir: /app
-    volumes:
-      - ./client:/app
+  client:
+    build: ./client
+    environment:
+      EC2_API: 54.251.92.137:8081
+      PORT: 8081
+      SALT: 10
+      EC2_HOST: ec2-54-251-92-137.ap-southeast-1.compute.amazonaws.com:3000
+      EC2_IPV4: 54.251.92.137:3000
+      DB_HOST: db
+      DB_USER: new
+      DB_PWD: 123
+      DB_DB: muse
     ports:
       - "3000:80"
     depends_on:

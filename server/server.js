@@ -5,15 +5,16 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import cookieParser from 'cookie-parser';
 import moment from 'moment';
-import os from 'os';
-const port = process.env.PORT || 8081;
-const salt = process.env.SALT || 10;
-const Host = process.env.EC2_HOST;
+import dotenv from 'dotenv'
+dotenv.config()
+const port = process.env.PORT;
+const salt = process.env.SALT;
 const ipV4 = process.env.EC2_IPV4;
-const User = process.env.DB_USER || "root";
-const Pwd = process.env.DB_PWD|| "";
-const DB = process.env.DB_DB || "muse";
-const Address = Host || "http://localhost:3000";
+const dbHost = process.env.DB_HOST;
+const User = process.env.DB_USER;
+const Pwd = process.env.DB_PWD;
+const DB = process.env.DB_DB;
+const Address = process.env.EC2_HOST || "http://localhost:3000";
 
 const app = express();
 app.use(express.json());
@@ -25,7 +26,7 @@ app.use(cors({
 app.use(cookieParser());
 
 const db = mysql.createConnection({
-    host: Host,
+    host: dbHost,
     user: User,
     password: Pwd,
     database: DB,
