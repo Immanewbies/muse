@@ -8,7 +8,7 @@ WORKDIR /usr/src/app/client
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install
+RUN npm install --verbose
 
 # Copy the rest of the client application files
 COPY . .
@@ -17,3 +17,5 @@ COPY . .
 RUN npm run build
 
 RUN npm install -g serve
+
+CMD ["serve", "-s build"]

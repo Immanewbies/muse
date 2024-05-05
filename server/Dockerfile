@@ -8,7 +8,7 @@ WORKDIR /usr/src/app/server
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install
+RUN npm install --verbose
 
 # Copy the rest of the server application files
 COPY . .
@@ -17,3 +17,4 @@ COPY . .
 EXPOSE 8081
 
 # Command to start the Express server
+CMD ["npm", "start"]
