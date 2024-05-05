@@ -17,4 +17,3 @@ COPY . .
 EXPOSE 8081
 
 # Command to start the Express server
-CMD ["npm", "start"]

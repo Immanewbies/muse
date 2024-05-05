@@ -32,6 +32,7 @@ services:
     depends_on:
       - db
     restart: on-failure
+    command: npm start
     networks:
       - backnet
       - frontnet
@@ -48,10 +49,11 @@ services:
       DB_PWD: 123
       DB_DB: muse
     ports:
-      - "3000:80"
+      - "3000:3000"
     depends_on:
       - server
     restart: on-failure
+    command: serve -s build
     networks:
       - frontnet
 

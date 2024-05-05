@@ -16,14 +16,4 @@ COPY . .
 # Build the React app for production
 RUN npm run build
 
-# Stage 2: Use Nginx as the web server to serve the built React app
-FROM nginx:alpine
-
-# Copy the built React app from the builder stage to Nginx web server
-COPY --from=builder /usr/src/app/client/build /usr/share/nginx/html
-
-# Expose port 80
-EXPOSE 80
-
-# Command to start Nginx
-CMD ["nginx", "-g", "daemon off;"]
+RUN npm install -g serve
