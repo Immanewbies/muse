@@ -8,7 +8,7 @@ WORKDIR /usr/src/app/server
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install --verbose
+RUN npm install
 
 # Copy the rest of the server application files
 COPY . .

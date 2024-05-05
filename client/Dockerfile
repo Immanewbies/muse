@@ -8,14 +8,14 @@ WORKDIR /usr/src/app/client
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install --verbose
+RUN npm install
 
-# Copy the rest of the client application files
-COPY . .
-
-# Build the React app for production
 RUN npm run build
 
 RUN npm install -g serve
+
+COPY . .
+
+EXPOSE 3000
 
 CMD ["serve", "-s build"]
