@@ -1,5 +1,5 @@
 # Use official Node.js image as base for building
-FROM node:14-alpine AS builder
+FROM node:18-alpine
 
 # Set working directory inside the container
 WORKDIR /usr/src/app/client
