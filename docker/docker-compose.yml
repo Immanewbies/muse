@@ -13,6 +13,8 @@ services:
     volumes:
       - ./database/muse.sql:/docker-entrypoint-initdb.d/muse.sql
     restart: on-failure
+    networks:
+      - backnet
   server:
     build: ../server
     environment:
@@ -31,6 +33,9 @@ services:
       - db
     restart: on-failure
     command: npm start
+    networks:
+      - backnet
+      - frontnet
   client:
     build: ../client
     environment:
@@ -46,6 +51,12 @@ services:
     ports:
       - "3000:80"
     depends_on:
-      - backend
+      - server
     restart: on-failure
     command: npm start
+    networks:
+      - frontnet
+
+networks:
+  backnet:
+  frontnet:
