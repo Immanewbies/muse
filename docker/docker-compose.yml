@@ -32,7 +32,6 @@ services:
     depends_on:
       - db
     restart: on-failure
-    command: npm start
     networks:
       - backnet
       - frontnet
@@ -53,7 +52,6 @@ services:
     depends_on:
       - server
     restart: on-failure
-    command: npm start
     networks:
       - frontnet
 
