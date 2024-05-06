@@ -18,11 +18,11 @@ services:
   server:
     build: ../server
     environment:
-      EC2_API: 54.251.92.137:8081
+      EC2_API: 18.141.191.98:8081
       PORT: 8081
       SALT: 10
-      EC2_HOST: ec2-54-251-92-137.ap-southeast-1.compute.amazonaws.com:3000
-      EC2_IPV4: 54.251.92.137:3000
+      EC2_HOST: ec2-18-141-191-98.ap-southeast-1.compute.amazonaws.com:3000
+      EC2_IPV4: 18.141.191.98:3000
       DB_HOST: db
       DB_USER: new
       DB_PWD: 123
@@ -39,17 +39,17 @@ services:
   client:
     build: ../client
     environment:
-      EC2_API: 54.251.92.137:8081
+      EC2_API: 18.141.191.98:8081
       PORT: 8081
       SALT: 10
-      EC2_HOST: ec2-54-251-92-137.ap-southeast-1.compute.amazonaws.com:3000
-      EC2_IPV4: 54.251.92.137:3000
+      EC2_HOST: ec2-18-141-191-98.ap-southeast-1.compute.amazonaws.com:3000
+      EC2_IPV4: 18.141.191.98:3000
       DB_HOST: db
       DB_USER: new
       DB_PWD: 123
       DB_DB: muse
     ports:
-      - "3000:3000"
+      - "3000:80"
     depends_on:
       - server
     restart: on-failure
