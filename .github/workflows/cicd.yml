@@ -92,6 +92,7 @@ jobs:
 
       - name: EC2 and update Docker Compose
         run: |
+            cd ./docker
             docker-compose down
             docker-compose build
             docker-compose up -d
