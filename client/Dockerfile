@@ -15,3 +15,5 @@ COPY . .
 
 # Build the React app
 EXPOSE 3000
+
+CMD ["npm", "start"]
