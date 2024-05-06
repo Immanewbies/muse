@@ -94,7 +94,12 @@ jobs:
         run: |
             cd ./docker
             docker-compose down
-            docker rmi $(docker images -q)
+            if [[ "$(docker images -q)" ]]; then
+              docker rmi $(docker images -q)
+              echo "All Docker images removed."
+            else
+              echo "No Docker images available to remove."
+            fi
             docker-compose build --no-cache
             docker-compose up -d
 
