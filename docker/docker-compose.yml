@@ -18,11 +18,11 @@ services:
   server:
     image: immanewbies/muse-server:latest
     environment:
-      EC2_API: 18.141.191.98:8081
+      EC2_API: server
       PORT: 8081
       SALT: 10
-      EC2_HOST: ec2-18-141-191-98.ap-southeast-1.compute.amazonaws.com:3000
-      EC2_IPV4: 18.141.191.98:3000
+      EC2_HOST: client
+      EC2_IPV4: client
       DB_HOST: db
       DB_USER: new
       DB_PWD: 123
