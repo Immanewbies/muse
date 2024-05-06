@@ -35,7 +35,7 @@ services:
     environment:
       EC2_API: 3.1.174.146:8081
     ports:
-      - "3000:80"
+      - "3000:3000"
     depends_on:
       - server
     restart: on-failure
