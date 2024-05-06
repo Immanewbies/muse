@@ -67,14 +67,14 @@ jobs:
 
       - name: Build & Push React with Docker
         run: |
-          docker image build -t ${{ secrets.DOCKERHUB_USERNAME }}/muse-react:latest .
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/muse-react:latest
+          docker image build -t ${{ secrets.DH_USERNAME }}/muse-react:latest .
+          docker push ${{ secrets.DH_USERNAME }}/muse-react:latest
         working-directory: client
 
       - name: Build & Push Express with Docker
         run: |
-          docker image build -t ${{ secrets.DOCKERHUB_USERNAME }}/muse-server:latest .
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/muse-server:latest
+          docker image build -t ${{ secrets.DH_USERNAME }}/muse-server:latest .
+          docker push ${{ secrets.DH_USERNAME }}/muse-server:latest
         working-directory: server
 
 
