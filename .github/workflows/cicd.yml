@@ -85,7 +85,7 @@ jobs:
 
   cd:
     needs: [ci]
-    runs-on: ip-172-31-21-210
+    runs-on: self-hosted
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
