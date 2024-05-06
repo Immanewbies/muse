@@ -85,52 +85,26 @@ jobs:
 
   cd:
     needs: [ci]
-    runs-on: ubuntu-latest
+    runs-on: aws-ec2
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
       - name: Check if directory exists on EC2
-        uses: appleboy/ssh-action@master
-        id: check-dir
-        with:
-          host: ${{ secrets.EC2_EIP }}
-          username: ${{ secrets.EC2_USERNAME }}
-          key: ${{ secrets.EC2_PRIVATE_KEY }}
-          script: |
-            if [ -d "/muse/docker" ]; then
-              echo "Directory already exists."
-              exit 1
-            else
-              echo "Directory does not exist."
-            fi
-  
-      - name: Create directory if it doesn't exist
-        if: steps.check-dir.outcome == 'success'
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.EC2_EIP }}
-          username: ${{ secrets.EC2_USERNAME }}
-          key: ${{ secrets.EC2_PRIVATE_KEY }}
-          script: |
+        run: |
+          if [ -d "/muse/docker" ]; then
+            echo "Directory already exists."
+            exit 1
+          else
+            echo "Directory does not exist."
             mkdir -p /muse/docker
+          fi
 
-      - name: Copy Docker Compose file to EC2
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.EC2_EIP }}
-          username: ${{ secrets.EC2_USERNAME }}
-          key: ${{ secrets.EC2_PRIVATE_KEY }}
-          source: docker/docker-compose.yml
-          target: /muse/docker/docker-compose.yml
+      - name: Copy Docker Compose
+        run: cp ./docker/docker-compose.yml /muse/docker/docker-compose.yml
 
-      - name: SSH into EC2 and update Docker Compose
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.EC2_EIP }}
-          username: ${{ secrets.EC2_USERNAME }}
-          key: ${{ secrets.EC2_PRIVATE_KEY }}
-          script: |
+      - name: EC2 and update Docker Compose
+        run: |
             cd /muse/docker
             docker-compose down
             docker-compose build
