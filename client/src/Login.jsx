@@ -22,7 +22,7 @@ function Login() {
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        axios.post(`${serverUrl}/login`, values)
+        axios.post(`${process.env.EC2_API}/login`, values)
             .then(res => {
                 if (res.data.Status === "Success") {
                     alert("Login Successful")
