@@ -85,7 +85,7 @@ jobs:
 
   cd:
     needs: [ci]
-    runs-on: aws-ec2
+    runs-on: ip-172-31-21-210
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -97,5 +97,4 @@ jobs:
             docker rmi $(docker images -q)
             docker-compose build --no-cache
             docker-compose up -d
-            docker exec -i mysql-db mysql -u new -p123 muse < /home/ubuntu/actions-runner/_work/muse/muse/database/muse.sql
 
