@@ -80,7 +80,7 @@ jobs:
 
   cd:
     needs: [ci]
-    runs-on: ubuntu-latest
+    runs-on: aws-ec2
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -94,4 +94,3 @@ jobs:
         run: |
           docker-compose up -d
         working-directory: docker
-
