@@ -1,4 +1,4 @@
- .p h1 {
+.p h1 {
     text-align: center;
     color: white;
     font-size: 54px;
@@ -71,69 +71,79 @@
     font-size: 18px;
 }
 
-
+.center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+    
+}
 .table-container {
-    max-height: 100px;
-    overflow-y: auto; /* Enable vertical scrolling */
-    overflow-x: hidden; /* Hide horizontal scrollbar */
-}
-
-table {
-    width: 50%;
-    border-collapse: collapse;
-    border-spacing: 0;
+    max-height: 250px; 
+    overflow-y: auto;
+    
     text-align: center;
-    background-color: #f2f2f2;
-    width: 80vh;
-    overflow: hidden;
-    border-radius: 10px; /* Adding border radius */
+    border-radius: 25px;
+    width: 90vh;
 }
 
-/* Style the table header */
-thead {
-    background-color: #f2f2f2;
+.styled-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    border-radius: 25px;
+    width: 100%;
+    text-align: center;
+
+
 }
 
-thead th {
-    padding: 10px;
+.styled-table thead th {
+    background: linear-gradient(159deg, #1E1E1E 0%, #4D2DB7 100%);
+    color: #ffffff;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    text-align: center;
+    
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+    background: linear-gradient(120deg, #000000 40%, #444444 120%);
+
+    color: whitesmoke;
+
+}
+
+.styled-table tbody tr {
+    border-bottom: 1px solid whitesmoke;
+    
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #4D2DB7;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #4D2DB7;
+   
+
+    
+}
+
+.styled-table tbody tr.active-row {
     font-weight: bold;
-    border-bottom: 1px solid #ddd;
+    color: #4D2DB7;
+
 }
 
-/* Style the table body */
-tbody th {
-    padding: 10px;
-}
-
-/* Alternate row color */
-tbody tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-
-/* Hover effect */
-tbody tr:hover {
-    background-color: #ddd;
-}
-
-/* Responsive table */
-@media screen and (max-width: 600px) {
-    table {
-        border: 0;
-    }
-
-    thead {
-        display: none;
-    }
-
-    tbody th {
-        display: block;
-        width: 100%;
-        text-align: left;
-    }
-
-    tbody td {
-        display: block;
-        width: 100%;
-        text-align: right;
-    }
+.styled-table tbody tr:hover {
+    background-color: #c7c7c7; 
+    font-weight: bold;
+    border-bottom: 1px solid #4D2DB7;
 }

@@ -96,7 +96,7 @@ function Theoryinfo() {
                     <a onClick={handleLogout}><li>Logout</li></a>
                   </>
                 ) : (
-                  <Link to="login"><li>Login</li></Link>
+                  <Link to="/login"><li>Login</li></Link>
                 )
               }
 

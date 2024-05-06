@@ -145,29 +145,33 @@ function Profile({ profile_name }) {
 
 
                     </div>
+                    <div className="center-container">
 
-    <div className='center-content table-container'>
-        <table>
-            <thead>
-                <tr>
-                    <td>Quiz Set ID</td>
-                    <td>Score</td>
-                    <td>Submit Date</td>
+                    <div className="table-container">
+                        
+    <table className="styled-table">
+        <thead>
+            <tr>
+                <th>Quiz Set ID</th>
+                <th>Score</th>
+                <th>Submit Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {userScore.map((score, index) => (
+                <tr key={index}>
+                    <td>{score.quiz_set_id}</td>
+                    <td>{score.score}</td>
+                    <td>{score.submit_date}</td>
                 </tr>
-            </thead>
-            <tbody>
-                {userScore.map((score, index) => (
-                    <tr key={index}>
-                        <th>{score.quiz_set_id}</th>
-                        <th>{score.score}</th>
-                        <th>{score.submit_date}</th>
-                    </tr>
-                ))}
-            </tbody>
-        </table>
+            ))}
+        </tbody>
+    </table>
+</div>
+</div>
     </div>
 
-                    </div>
+          
     )
 }
 

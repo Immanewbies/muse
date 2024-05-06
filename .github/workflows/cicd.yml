@@ -77,20 +77,62 @@ jobs:
           docker push ${{ secrets.DH_USERNAME }}/muse-server:latest
         working-directory: server
 
+      - name: Build & Push Mysql with Docker
+        run: |
+          docker image build -t ${{ secrets.DH_USERNAME }}/muse-mysql:latest .
+          docker push ${{ secrets.DH_USERNAME }}/muse-mysql:latest
+        working-directory: database
 
   cd:
     needs: [ci]
-    runs-on: aws-ec2
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Build Docker images
-        run: |
-          docker-compose build
-        working-directory: docker
+      - name: Check if directory exists on EC2
+        uses: appleboy/ssh-action@master
+        id: check-dir
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_PRIVATE_KEY }}
+          script: |
+            if [ -d "/muse/docker" ]; then
+              echo "Directory already exists."
+              exit 1
+            else
+              echo "Directory does not exist."
+            fi
+  
+      - name: Create directory if it doesn't exist
+        if: steps.check-dir.outcome == 'success'
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_PRIVATE_KEY }}
+          script: |
+            mkdir -p /muse/docker
 
-      - name: Docker Up
-        run: |
-          docker-compose up -d
-        working-directory: docker
+      - name: Copy Docker Compose file to EC2
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_PRIVATE_KEY }}
+          source: docker/docker-compose.yml
+          target: /muse/docker/docker-compose.yml
+
+      - name: SSH into EC2 and update Docker Compose
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_PRIVATE_KEY }}
+          script: |
+            cd /muse/docker
+            docker-compose down
+            docker-compose build
+            docker-compose up -d
+

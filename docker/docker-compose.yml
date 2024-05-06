@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   db:
-    image: mysql:latest
+    image: immanewbies/muse-mysql:latest
     container_name: mysql-db
     environment:
       MYSQL_USER: new
@@ -14,14 +14,13 @@ services:
       - ./database/muse.sql:/docker-entrypoint-initdb.d/muse.sql
     restart: on-failure
     networks:
-      - backnet
+      - musenet
   server:
     image: immanewbies/muse-server:latest
     environment:
       PORT: 8081
       SALT: 10
-      EC2_HOST: ec2-18-141-191-98.ap-southeast-1.compute.amazonaws.com:3000
-      EC2_IPV4: 18.141.191.98:3000
+      EC2_IPV4: 3.1.174.146:3000
       DB_HOST: db
       DB_USER: new
       DB_PWD: 123
@@ -32,20 +31,18 @@ services:
       - db
     restart: on-failure
     networks:
-      - backnet
-      - frontnet
+      - musenet
   client:
     image: immanewbies/muse-react:latest
     environment:
-      EC2_API: 18.141.191.98:8081
+      EC2_API: 3.1.174.146:8081
     ports:
       - "3000:80"
     depends_on:
       - server
     restart: on-failure
     networks:
-      - frontnet
+      - musenet
 
 networks:
-  backnet:
-  frontnet:
+  musenet:

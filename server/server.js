@@ -140,33 +140,33 @@ app.post('/scale/findscale', (req, res) => {
 app.post('/eartrain/question', (req, res) => {
     const sql = `
     SELECT E.eartrain_text, E.quiz1, E.quiz2, E.quiz3, E.quiz4, E.quiz5
-    FROM Eartrain E
-    INNER JOIN Quiz QS ON E.quiz_set_id = QS.quiz_set_id
-    INNER JOIN Difficulty D ON QS.difficulty_id = D.difficulty_id
-    INNER JOIN Category C ON QS.category_id = C.category_id
+    FROM eartrain E
+    INNER JOIN quiz QS ON E.quiz_set_id = QS.quiz_set_id
+    INNER JOIN difficulty D ON QS.difficulty_id = D.difficulty_id
+    INNER JOIN category C ON QS.category_id = C.category_id
     WHERE D.difficulty_name = ? 
     AND C.category_name = ?
     `;
     const params = [req.body.difficulty_name, req.body.category_name];
 
     db.query(sql, params, (err, results) => {
-        if (err) return res.json({ error: "No Question" });
+        if (err) return res.json({ error: "No question" });
         return res.json(results);
     });
 })
 
 app.get('/eartrain/note', (req, res) => {
-    const sql = "SELECT note_name FROM Note";
+    const sql = "SELECT note_name FROM note";
     db.query(sql, (err, results) => {
-        if (err) return res.json({ error: "No Notes found in the server" });
+        if (err) return res.json({ error: "No notes found in the server" });
         return res.json(results);
     });
 })
 
 app.get('/eartrain/chord', (req, res) => {
-    const sql = "SELECT chord_name FROM Chord";
+    const sql = "SELECT chord_name FROM chord";
     db.query(sql, (err, results) => {
-        if (err) return res.json({ error: "No Notes found in the server" });
+        if (err) return res.json({ error: "No notes found in the server" });
         return res.json(results);
     });
 })
@@ -174,17 +174,17 @@ app.get('/eartrain/chord', (req, res) => {
 app.post('/quiz/question', (req, res) => {
     const sql = `
     SELECT Q.question_text, Q.option1, Q.option2, Q.option3, Q.option4, Q.ans	
-    FROM Question Q
-    INNER JOIN Quiz QS ON Q.quiz_set_id = QS.quiz_set_id
-    INNER JOIN Difficulty D ON QS.difficulty_id = D.difficulty_id
-    INNER JOIN Category C ON QS.category_id = C.category_id
+    FROM question Q
+    INNER JOIN quiz QS ON Q.quiz_set_id = QS.quiz_set_id
+    INNER JOIN difficulty D ON QS.difficulty_id = D.difficulty_id
+    INNER JOIN category C ON QS.category_id = C.category_id
     WHERE D.difficulty_name = ? 
     AND C.category_name = ?
     `;
     const params = [req.body.difficulty_name, req.body.category_name];
 
     db.query(sql, params, (err, results) => {
-        if (err) return res.json({ error: "No Question" });
+        if (err) return res.json({ error: "No question" });
         return res.json(results);
     });
 })
@@ -198,9 +198,9 @@ app.post('/user/score', (req, res) => {
             const userid = results[0].user_id;
             const sqlQSid = `
             SELECT QS.quiz_set_id
-            FROM Quiz QS
-            INNER JOIN Difficulty D ON QS.difficulty_id = D.difficulty_id
-            INNER JOIN Category C ON QS.category_id = C.category_id
+            FROM quiz QS
+            INNER JOIN difficulty D ON QS.difficulty_id = D.difficulty_id
+            INNER JOIN category C ON QS.category_id = C.category_id
             WHERE D.difficulty_name = ? 
             AND C.category_name = ?
             `;
