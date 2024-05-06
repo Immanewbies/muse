@@ -72,7 +72,7 @@ app.post('/register', (req, res) => {
 app.post('/login', (req, res) => {
     const sql = "SELECT * FROM user WHERE username = ?";
     db.query(sql, [req.body.username], (err, data) => {
-        if (err) return res.json({ Error: "Login error in server" });
+        if (err) return res.json({ Error: "Login error in server" + err });
         if (data.length > 0) {
             bcrypt.compare(req.body.password.toString(), data[0].password, (err, result) => {
                 if (err) return res.json({ Error: "Password compare error" });
