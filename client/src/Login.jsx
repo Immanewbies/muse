@@ -50,7 +50,7 @@ function Login() {
           <div className="center">
                   
           
-              <h1>Login</h1>
+              <h1>HelloWorld</h1>
   
               <form onSubmit={handleSubmit} action="" method="POST" >
                   <div className="txt_field">
