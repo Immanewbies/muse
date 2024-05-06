@@ -94,7 +94,8 @@ jobs:
         run: |
             cd ./docker
             docker-compose down
-            docker-compose build
+            docker rmi $(docker images -q)
+            docker-compose build --no-cache
             docker-compose up -d
             docker exec -i mysql-db mysql -u new -p123 muse < /home/ubuntu/actions-runner/_work/muse/muse/database/muse.sql
 
