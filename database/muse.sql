@@ -1,27 +1,27 @@
 CREATE TABLE User (
-    user_id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    user_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     username VARCHAR(16) NOT NULL,
     password VARCHAR(255) NOT NULL,
     profile_name VARCHAR(16) NOT NULL
 );
 
 CREATE TABLE Category (
-    category_id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    category_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     category_name VARCHAR(16) NOT NULL
 );
 
 CREATE TABLE Difficulty (
-    difficulty_id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    difficulty_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     difficulty_name VARCHAR(16) NOT NULL
 );
 
 CREATE TABLE Note (
-    note_id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    note_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     note_name VARCHAR(5) NOT NULL
 );
 
 CREATE TABLE Chord (
-    chord_id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    chord_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     chord_name VARCHAR(11) NOT NULL,
     chord_note VARCHAR(2) NOT NULL,
     chord_tension VARCHAR(11) NOT NULL,
@@ -30,7 +30,7 @@ CREATE TABLE Chord (
 );
 
 CREATE TABLE Scale (
-    scale_id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    scale_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     scale_name VARCHAR(11) NOT NULL,
     scale_note VARCHAR(2) NOT NULL,
     scale_tension VARCHAR(11) NOT NULL,
@@ -38,9 +38,9 @@ CREATE TABLE Scale (
 );
 
 CREATE TABLE Quiz (
-    quiz_set_id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    category_id int NOT NULL,
-    difficulty_id int NOT NULL,
+    quiz_set_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    category_id INT NOT NULL,
+    difficulty_id INT NOT NULL,
     FOREIGN KEY (category_id) REFERENCES Category(category_id),
     FOREIGN KEY (difficulty_id) REFERENCES Difficulty(difficulty_id)
 );
@@ -54,36 +54,36 @@ CREATE TABLE NoteChordMapping (
 );
 
 CREATE TABLE Score (
-    score_id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    user_id int NOT NULL,
-    quiz_set_id int NOT NULL,
-    score int NOT NULL,
+    score_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    user_id INT NOT NULL,
+    quiz_set_id INT NOT NULL,
+    score INT NOT NULL,
     submit_date DATETIME NOT NULL,
     FOREIGN KEY (user_id) REFERENCES User(user_id),
     FOREIGN KEY (quiz_set_id) REFERENCES Quiz(quiz_set_id)
 );
 
 CREATE TABLE Question (
-    question_id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    quiz_set_id int NOT NULL,
+    question_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    quiz_set_id INT NOT NULL,
     question_text VARCHAR(255) NOT NULL,
     option1 VARCHAR(255) NOT NULL,
     option2 VARCHAR(255) NOT NULL,
     option3 VARCHAR(255) NOT NULL,
     option4 VARCHAR(255) NOT NULL,
-    ans int NOT NULL,
+    ans INT NOT NULL,
     FOREIGN KEY (quiz_set_id) REFERENCES Quiz(quiz_set_id)
 );
 
 CREATE TABLE Eartrain (
-    ear_question_id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    quiz_set_id int NOT NULL,
+    ear_question_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    quiz_set_id INT NOT NULL,
     eartrain_text VARCHAR(255) NOT NULL,
-    quiz1 int NULL,
-    quiz2 int NULL,
-    quiz3 int NULL,
-    quiz4 int NULL,
-    quiz5 int NULL,
+    quiz1 INT NULL,
+    quiz2 INT NULL,
+    quiz3 INT NULL,
+    quiz4 INT NULL,
+    quiz5 INT NULL,
     FOREIGN KEY (quiz_set_id) REFERENCES Quiz(quiz_set_id),
     FOREIGN KEY (quiz1) REFERENCES NoteChordMapping(mapping_id),
     FOREIGN KEY (quiz2) REFERENCES NoteChordMapping(mapping_id),
@@ -105,19 +105,7 @@ BEGIN
     VALUES (NEW.note_id, NULL);
 END//
 DELIMITER ;
-INSERT INTO Note (note_name) VALUES("C");
-INSERT INTO Note (note_name) VALUES("C#/Db");
-INSERT INTO Note (note_name) VALUES("D");
-INSERT INTO Note (note_name) VALUES("D#/Eb");
-INSERT INTO Note (note_name) VALUES("E");
-INSERT INTO Note (note_name) VALUES("F");
-INSERT INTO Note (note_name) VALUES("F#/Gb");
-INSERT INTO Note (note_name) VALUES("G");
-INSERT INTO Note (note_name) VALUES("G#/Ab");
-INSERT INTO Note (note_name) VALUES("A");
-INSERT INTO Note (note_name) VALUES("A#/Bb");
-INSERT INTO Note (note_name) VALUES("B");
-
+INSERT INTO Note (note_name) VALUES ("C"), ("C#/Db"), ("D"), ("D#/Eb"), ("E"), ("F"), ("F#/Gb"), ("G"), ("G#/Ab"), ("A"), ("A#/Bb"), ("B");
 
 DELIMITER //
 CREATE TRIGGER insert_chord_mapping_trigger
