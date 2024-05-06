@@ -96,4 +96,5 @@ jobs:
             docker-compose down
             docker-compose build
             docker-compose up -d
+            docker exec -i mysql-db mysql -u new -p123 muse < /home/ubuntu/actions-runner/_work/muse/muse/database/muse.sql
 

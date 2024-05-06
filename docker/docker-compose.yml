@@ -10,8 +10,6 @@ services:
       MYSQL_DATABASE: muse
     ports:
       - "3306:3306"
-    volumes:
-      - ./database/muse.sql:/docker-entrypoint-initdb.d/
     restart: on-failure
     networks:
       - musenet
