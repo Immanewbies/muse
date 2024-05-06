@@ -4,10 +4,10 @@ services:
     image: immanewbies/muse-mysql:latest
     container_name: mysql-db
     environment:
-      MYSQL_USER: new
-      MYSQL_PASSWORD: 123
-      MYSQL_ROOT_PASSWORD: 123
-      MYSQL_DATABASE: muse
+      - MYSQL_USER: new
+      - MYSQL_PASSWORD: 123
+      - MYSQL_ROOT_PASSWORD: 123
+      - MYSQL_DATABASE: muse
     ports:
       - "3306:3306"
     restart: on-failure
@@ -16,13 +16,13 @@ services:
   server:
     image: immanewbies/muse-server:latest
     environment:
-      PORT: 8081
-      SALT: 10
-      EC2_IPV4: 3.1.174.146:3000
-      DB_HOST: db
-      DB_USER: new
-      DB_PWD: 123
-      DB_DB: muse
+      - PORT: 8081
+      - SALT: 10
+      - EC2_IPV4: 3.1.174.146:3000
+      - DB_HOST: db
+      - DB_USER: new
+      - DB_PWD: 123
+      - DB_DB: muse
     ports:
       - "8081:8081"
     depends_on:
@@ -33,7 +33,7 @@ services:
   client:
     image: immanewbies/muse-react:latest
     environment:
-      EC2_API: 3.1.174.146:8081
+      - EC2_API: 3.1.174.146:8081
     ports:
       - "3000:3000"
     depends_on:
