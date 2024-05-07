@@ -32,8 +32,6 @@ services:
       - musenet
   client:
     image: immanewbies/muse-react:latest
-    build:
-      context: .
     environment:
       EC2_API: "http://13.251.17.140:8081" 
     ports:
