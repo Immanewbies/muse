@@ -85,7 +85,7 @@ jobs:
 
   cd:
     needs: [ci]
-    runs-on: self-hosted
+    runs-on: ec2-ubuntu
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
