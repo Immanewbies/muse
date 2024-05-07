@@ -91,7 +91,7 @@ function Quiz() {
 
   const next = () => {
     if (lock === true) {
-      if (index === data.length - 1) {
+      if (index === questionL - 1) {
         const write_score = async () => {
           try {
             await axios.post(`${serverUrl}/user/score`, values)

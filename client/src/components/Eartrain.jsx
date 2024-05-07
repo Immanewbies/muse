@@ -75,7 +75,7 @@ function Eartrain() {
                 let quizLengthValue
                 if (difficulty_name === 'Hard') {
                     quizLengthValue = 5
-                } else if (difficulty_name === 'Medium') {
+                } else if (difficulty_name === 'Normal') {
                     quizLengthValue = 4
                 } else {
                     quizLengthValue = 3
@@ -94,7 +94,7 @@ function Eartrain() {
                 let octaveValue
                 if (difficulty_name === 'Hard') {
                     octaveValue = { min: 2, max: 4 }
-                } else if (difficulty_name === 'Medium') {
+                } else if (difficulty_name === 'Normal') {
                     octaveValue = { min: 3, max: 4 }
                 } else {
                     octaveValue = { min: 3, max: 3 }
@@ -290,7 +290,7 @@ function Eartrain() {
             if (answerCorrect) {
                 setScore(prevScore => prevScore + 1)
             }
-            if (index === data.length - 1) {
+            if (index === questionL - 1) {
                 const write_score = async () => {
                     try {
                         await axios.post(`${serverUrl}/user/score`, values)

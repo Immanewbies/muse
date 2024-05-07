@@ -58,11 +58,11 @@ function Profile({ profile_name }) {
             // Calculate level and progress level
             let newLevel = 1
             let newProgressLevel = 'Beginner'
-            if (percentage >= 80) {
+            if (percentage >= 50) {
                 newLevel = 2
                 newProgressLevel = 'Basic'
             }
-            if (percentage === 100) {
+            if (percentage >= 90) {
                 newLevel = 3
                 newProgressLevel = 'Standard'
             }

@@ -2,7 +2,7 @@
 FROM node:18-alpine
 
 # Set working directory inside the container
-WORKDIR /app/server
+WORKDIR /server
 
 # Copy package.json and package-lock.json
 COPY package*.json ./
@@ -15,7 +15,6 @@ ENV DB_HOST db:3306
 ENV DB_USER new
 ENV DB_PWD 123
 ENV DB_DB muse
-
 
 # Install dependencies
 RUN npm install

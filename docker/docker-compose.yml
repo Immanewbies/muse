@@ -2,7 +2,6 @@ version: '3.8'
 services:
   db:
     image: immanewbies/muse-mysql:latest
-    container_name: mysql-db
     environment:
       MYSQL_USER: "new"
       MYSQL_PASSWORD: "123"
@@ -19,7 +18,7 @@ services:
       PORT: "8081"
       SALT: "10"
       EC2_IPV4: "http://13.251.17.140:3000"
-      DB_HOST: "db:3306"
+      DB_HOST: db
       DB_USER: "new"
       DB_PWD: "123"
       DB_DB: "muse"
@@ -33,7 +32,7 @@ services:
   client:
     image: immanewbies/muse-react:latest
     environment:
-      EC2_API: "http://13.251.17.140:8081" 
+      REACT_APP_EC2_API: "http://13.251.17.140:8081" 
     ports:
       - "3000:80"
     depends_on:

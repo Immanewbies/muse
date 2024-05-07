@@ -22,7 +22,7 @@ function Login() {
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        axios.post(`${process.env.EC2_API}/login`, values)
+        axios.post(`${serverUrl}/login`, values)
             .then(res => {
                 if (res.data.Status === "Success") {
                     alert("Login Successful")
@@ -50,7 +50,7 @@ function Login() {
           <div className="center">
                   
           
-              <h1>HelloWorld</h1>
+              <h1>Login</h1>
   
               <form onSubmit={handleSubmit} action="" method="POST" >
                   <div className="txt_field">
