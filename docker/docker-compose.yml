@@ -18,7 +18,7 @@ services:
       PORT: "8081"
       SALT: "10"
       EC2_IPV4: "http://13.251.17.140:3000"
-      DB_HOST: db
+      DB_HOST: localhost
       DB_USER: "new"
       DB_PWD: "123"
       DB_DB: "muse"
