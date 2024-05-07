@@ -83,23 +83,23 @@ jobs:
           docker push ${{ secrets.DH_USERNAME }}/muse-mysql:latest
         working-directory: database
 
-  cd:
-    needs: [ci]
-    runs-on: aws-ec2
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+  # cd:
+  #   needs: [ci]
+  #   runs-on: aws-ec2
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v2
 
-      - name: EC2 and update Docker Compose
-        run: |
-            cd ./docker
-            docker-compose down
-            if [[ "$(docker images -q)" ]]; then
-              docker rmi $(docker images -q)
-              echo "All Docker images removed."
-            else
-              echo "No Docker images available to remove."
-            fi
-            docker-compose build --no-cache
-            docker-compose up -d
+  #     - name: EC2 and update Docker Compose
+  #       run: |
+  #           cd ./docker
+  #           docker-compose down
+  #           if [[ "$(docker images -q)" ]]; then
+  #             docker rmi $(docker images -q)
+  #             echo "All Docker images removed."
+  #           else
+  #             echo "No Docker images available to remove."
+  #           fi
+  #           docker-compose build --no-cache
+  #           docker-compose up -d
 
