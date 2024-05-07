@@ -92,7 +92,7 @@ jobs:
 
       - name: EC2 and update Docker Compose
         run: |
-            cd /home/ubuntu/actions-runner/_work/muse/muse/docker
+            cd ./docker
             docker-compose down
             if [[ "$(docker images -q)" ]]; then
               docker rmi $(docker images -q)

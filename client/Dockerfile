@@ -1,25 +1,14 @@
-# Use an official Node.js runtime as the base image
-
-FROM node:19.6.0-alpine
-# Set the working directory within the container
-WORKDIR /client
-
-# Copy package.json and package-lock.json to the container
+# Node.js build stage
+FROM node:19.6.0-alpine AS build-stage
+WORKDIR /app
 COPY package*.json ./
-
-# Receive the EC2_API argument from docker-compose
-ARG EC2_API
-
-# Set the environment variable EC2_API
-ENV EC2_API $EC2_API
-
-# Install dependencies
+ENV EC2_API="13.251.17.140:8081"
 RUN npm install
-
-# Copy the rest of the application code to the container
 COPY . .
+RUN npm run build
 
-# Build the React app
-EXPOSE 3000
-
-CMD ["npm", "start"]
+# Nginx production stage
+FROM nginx:stable-alpine AS production-stage
+COPY --from=build-stage /app/dist /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

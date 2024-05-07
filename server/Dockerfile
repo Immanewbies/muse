@@ -2,27 +2,19 @@
 FROM node:18-alpine
 
 # Set working directory inside the container
-WORKDIR /server
+WORKDIR /app/server
 
 # Copy package.json and package-lock.json
 COPY package*.json ./
 
-ARG PORT
-ARG SALT
-ARG EC2_IPV4
-ARG DB_HOST
-ARG DB_USER
-ARG DB_PWD
-ARG DB_DB
-
 # Set the environment variable EC2_API
-ENV PORT $PORT
-ENV SALT $SALT
-ENV EC2_IPV4 $EC2_IPV4
-ENV DB_HOST $DB_HOST
-ENV DB_USER $DB_USER
-ENV DB_PWD $DB_PWD
-ENV DB_DB $DB_DB
+ENV PORT 8081
+ENV SALT 10
+ENV EC2_IPV4 13.251.17.140:3000
+ENV DB_HOST db:3306
+ENV DB_USER new
+ENV DB_PWD 123
+ENV DB_DB muse
 
 
 # Install dependencies
