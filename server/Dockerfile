@@ -7,6 +7,24 @@ WORKDIR /server
 # Copy package.json and package-lock.json
 COPY package*.json ./
 
+ARG PORT
+ARG SALT
+ARG EC2_IPV4
+ARG DB_HOST
+ARG DB_USER
+ARG DB_PWD
+ARG DB_DB
+
+# Set the environment variable EC2_API
+ENV PORT $PORT
+ENV SALT $SALT
+ENV EC2_IPV4 $EC2_IPV4
+ENV DB_HOST $DB_HOST
+ENV DB_USER $DB_USER
+ENV DB_PWD $DB_PWD
+ENV DB_DB $DB_DB
+
+
 # Install dependencies
 RUN npm install
 
