@@ -31,8 +31,7 @@ const db = await mysql2.createConnection({
     host: dbHost,
     user: User,
     password: Pwd,
-    database: DB,
-    port: 3306
+    database: DB
 });
 
 const verifyUser = (req, res, next) => {
