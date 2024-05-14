@@ -21,18 +21,22 @@ app.use(cors({
 app.use(cookieParser());
 
 // Create a MySQL connection using mysql2
-const db = await mysql2.createPool({
+const db = mysql2.createPool({
     host: process.env.MYSQL_HOST || "localhost",
     user: process.env.MYSQL_USER || "root",
     password: process.env.MYSQL_PASSWORD || "",
     database: process.env.MYSQL_DATABASE || "muse",
     connectionLimit: 10,
     queueLimit: 0
-}).then(connection => {
-    console.log("Database connection successfully established.");
-    return connection;
-}).catch(err => {
-    console.error("Failed to connect to the database:", err);
+});
+
+db.getConnection((err, connection) => {
+    if (err) {
+        console.error("Failed to connect to the database:", err);
+    } else {
+        console.log("Database connection successfully established.");
+        connection.release(); // release to pool
+    }
 });
 
 const verifyUser = (req, res, next) => {
