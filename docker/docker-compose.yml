@@ -1,48 +1,49 @@
 version: '3.8'
 services:
   db:
-    image: immanewbies/muse-mysql:latest
+    build: ../database
+    container_name: muse-mysql
     environment:
-      MYSQL_USER: "new"
-      MYSQL_PASSWORD: "123"
-      MYSQL_ROOT_PASSWORD: "123"
-      MYSQL_DATABASE: "muse"
+      MYSQL_USER: new
+      MYSQL_PASSWORD: 123
+      MYSQL_ROOT_PASSWORD: 123
+      MYSQL_DATABASE: muse
     ports:
       - "3306:3306"
-    restart: on-failure
+    restart: always
     networks:
-      - musenet
+      - muse 
   server:
-    image: immanewbies/muse-server:latest
+    build: ../server
+    container_name: muse-server
     environment:
-      PORT: "8081"
-      SALT: "10"
-      EC2_IPV4: "http://13.251.17.140:3000"
-      DB_HOST: localhost
-      DB_USER: "new"
-      DB_PWD: "123"
-      DB_DB: "muse"
+      PORT: 8081
+      SALT: 10
+      EC2_IPV4: http://13.251.17.140:3000
+      MYSQL_HOST: db
+      MYSQL_USER: new
+      MYSQL_PASSWORD: 123
+      MYSQL_DATABASE: muse
     ports:
       - "8081:8081"
     depends_on:
       - db
     restart: on-failure
     networks:
-      - musenet
+      - muse
   client:
-    image: immanewbies/muse-react:latest
+    build: ../client
+    container_name: muse-client
     environment:
-      REACT_APP_EC2_API: "http://13.251.17.140:8081" 
+      REACT_APP_EC2_API: http://13.251.17.140:8081
     ports:
       - "3000:80"
     depends_on:
       - server
     restart: on-failure
-    volumes:
-      - .:/app
-      - /app/node_modules
     networks:
-      - musenet
+      - muse
 
 networks:
-  musenet:
+  muse:
+    driver: bridge

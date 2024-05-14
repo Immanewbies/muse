@@ -10,28 +10,29 @@ dotenv.config();
 
 const port = process.env.PORT;
 const salt = process.env.SALT;
-const ipV4 = process.env.EC2_IPV4;
-const dbHost = process.env.DB_HOST;
-const User = process.env.DB_USER;
-const Pwd = process.env.DB_PWD;
-const DB = process.env.DB_DB;
-const Address = process.env.EC2_HOST || "http://localhost:3000";
 
 const app = express();
 app.use(express.json());
 app.use(cors({
-    origin: [Address, ipV4],
+    origin: [process.env.EC2_IPV4 || "localhost:3000"],
     methods: ["POST", "GET"],
     credentials: true
 }));
 app.use(cookieParser());
 
 // Create a MySQL connection using mysql2
-const db = await mysql2.createConnection({
-    host: dbHost,
-    user: User,
-    password: Pwd,
-    database: DB
+const db = await mysql2.createPool({
+    host: process.env.MYSQL_HOST || "localhost",
+    user: process.env.MYSQL_USER || "root",
+    password: process.env.MYSQL_PASSWORD || "",
+    database: process.env.MYSQL_DATABASE || "muse",
+    connectionLimit: 10,
+    queueLimit: 0
+}).then(connection => {
+    console.log("Database connection successfully established.");
+    return connection;
+}).catch(err => {
+    console.error("Failed to connect to the database:", err);
 });
 
 const verifyUser = (req, res, next) => {
@@ -54,16 +55,30 @@ app.get('/', verifyUser, (req, res) => {
     return res.json({ Status: "Success", profile_name: req.profile_name })
 })
 
+// app.post('/register', async (req, res) => {
+//     const sql = "INSERT INTO user (`username`,`password`,`profile_name`) VALUES (?, ?, ?)";
+//     try {
+//         const hash = await bcrypt.hash(req.body.password.toString(), Number(salt));
+//         const values = [
+//             req.body.username,
+//             hash,
+//             req.body.profile_name
+//         ];
+//         const [results] = await db.query(sql, values);
+//         res.json({ Status: "Success" });
+//     } catch (err) {
+//         console.error(err);
+//         res.json({ Error: "Error occurred on the server" });
+//     }
+// });
+
 app.post('/register', async (req, res) => {
     const sql = "INSERT INTO user (`username`,`password`,`profile_name`) VALUES (?, ?, ?)";
     try {
         const hash = await bcrypt.hash(req.body.password.toString(), Number(salt));
-        const values = [
-            req.body.username,
-            hash,
-            req.body.profile_name
-        ];
-        const [results] = await db.execute(sql, values);
+        const values = [req.body.username, hash, req.body.profile_name];
+        const connection = await db; // Ensure the db connection is awaited
+        const [results] = await connection.query(sql, values);
         res.json({ Status: "Success" });
     } catch (err) {
         console.error(err);
@@ -74,7 +89,8 @@ app.post('/register', async (req, res) => {
 app.post('/login', async (req, res) => {
     const sql = "SELECT * FROM user WHERE username = ?";
     try {
-        const [data] = await db.execute(sql, [req.body.username]);
+        const connection = await db;
+        const [data] = await connection.query(sql, [req.body.username]);
         if (data.length > 0) {
             const match = await bcrypt.compare(req.body.password.toString(), data[0].password);
             if (match) {
@@ -114,7 +130,8 @@ app.post('/chord/findchord', async (req, res) => {
     }
 
     try {
-        const [results] = await db.query(sql, params);
+        const connection = await db;
+        const [results] = await connection.query(sql, params);
         if (results.length === 0) {
             return res.status(404).json({ error: "No chords found matching the criteria." });
         }
@@ -140,7 +157,8 @@ app.post('/scale/findscale', async (req, res) => {
     }
 
     try {
-        const [results] = await db.query(sql, params);
+        const connection = await db;
+        const [results] = await connection.query(sql, params);
         if (results.length === 0) {
             return res.status(404).json({ error: "No scales found matching the criteria." });
         }
@@ -164,7 +182,8 @@ app.post('/eartrain/question', async (req, res) => {
     const params = [req.body.difficulty_name, req.body.category_name];
 
     try {
-        const [results] = await db.query(sql, params);
+        const connection = await db;
+        const [results] = await connection.query(sql, params);
         if (results.length === 0) {
             return res.status(404).json({ error: "No questions found matching the criteria." });
         }
@@ -178,7 +197,8 @@ app.post('/eartrain/question', async (req, res) => {
 app.get('/eartrain/note', async (req, res) => {
     const sql = "SELECT note_name FROM note";
     try {
-        const [results] = await db.query(sql);
+        const connection = await db;
+        const [results] = await connection.query(sql, params);
         if (results.length === 0) {
             return res.status(404).json({ error: "No notes found." });
         }
@@ -192,7 +212,8 @@ app.get('/eartrain/note', async (req, res) => {
 app.get('/eartrain/chord', async (req, res) => {
     const sql = "SELECT chord_name FROM chord";
     try {
-        const [results] = await db.query(sql);
+        const connection = await db;
+        const [results] = await connection.query(sql, params);
         if (results.length === 0) {
             return res.status(404).json({ error: "No chords found." });
         }
@@ -216,7 +237,8 @@ app.post('/quiz/question', async (req, res) => {
     const params = [req.body.difficulty_name, req.body.category_name];
 
     try {
-        const [results] = await db.query(sql, params);
+        const connection = await db;
+        const [results] = await connection.query(sql, params);
         if (results.length === 0) {
             return res.status(404).json({ error: "No questions found matching the criteria." });
         }
@@ -232,7 +254,8 @@ app.post('/user/score', async (req, res) => {
     const currentDateTime = moment().format('YYYY-MM-DD HH:mm:ss');
 
     try {
-        const [userResults] = await db.query(sqlProfile, [req.body.profile_name]);
+        const connection = await db;
+        const [userResults] = await connection.query(sqlProfile, [req.body.profile_name]);
         if (userResults.length === 0) {
             return res.status(404).json({ Error: "User not found in server" });
         }
@@ -247,7 +270,7 @@ app.post('/user/score', async (req, res) => {
         AND C.category_name = ?
         `;
         const params = [req.body.difficulty_name, req.body.category_name];
-        const [quizResults] = await db.query(sqlQSid, params);
+        const [quizResults] = await connection.query(sqlQSid, params);
         if (quizResults.length === 0) {
             return res.status(404).json({ Error: "Quiz set not found" });
         }
@@ -255,7 +278,7 @@ app.post('/user/score', async (req, res) => {
 
         const sql = "INSERT INTO score (`user_id`,`quiz_set_id`,`score`,`submit_date`) VALUES (?, ?, ?, ?)";
         const values = [userid, quizsetid, req.body.score, currentDateTime];
-        await db.query(sql, values);
+        await connection.query(sql, values);
         return res.json({ Status: "Success" });
     } catch (err) {
         console.error(err);
@@ -266,13 +289,14 @@ app.post('/user/score', async (req, res) => {
 app.post('/user/getscore', async (req, res) => {
     const sql = "SELECT user_id FROM user WHERE profile_name = ?";
     try {
-        const [results] = await db.query(sql, [req.body.profile_name]);
+        const connection = await db;
+        const [results] = await connection.query(sql, [req.body.profile_name]);
         if (results.length === 0) {
             return res.status(404).json({ Error: "User not found in server." });
         }
         const userid = results[0].user_id;
         const scoreSql = "SELECT quiz_set_id, score, submit_date FROM score WHERE user_id = ?";
-        const [scoreResults] = await db.query(scoreSql, [userid]);
+        const [scoreResults] = await connection.query(scoreSql, [userid]);
         return res.json(scoreResults);
     } catch (err) {
         console.error(err);
@@ -282,7 +306,7 @@ app.post('/user/getscore', async (req, res) => {
 
 
 
-app.listen(port, '0.0.0.0', () => {
+app.listen(port, () => {
     console.log("Start server");
 })
 

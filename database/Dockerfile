@@ -10,7 +10,5 @@ ENV MYSQL_PASSWORD=123
 # Copy the SQL file into the container (assumes it's in ./database/)
 COPY ./muse.sql /docker-entrypoint-initdb.d/
 
-COPY custom.cnf /etc/mysql/conf.d/
-
 # Expose the MySQL port
 EXPOSE 3306

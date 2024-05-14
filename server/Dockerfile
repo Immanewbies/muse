@@ -7,14 +7,14 @@ WORKDIR /server
 # Copy package.json and package-lock.json
 COPY package*.json ./
 
-# Set the environment variable EC2_API
-ENV PORT 8081
-ENV SALT 10
-ENV EC2_IPV4 13.251.17.140:3000
-ENV DB_HOST localhost
-ENV DB_USER new
-ENV DB_PWD 123
-ENV DB_DB muse
+# # Set the environment variable EC2_API
+# ENV PORT 8081
+# ENV SALT 10
+# ENV EC2_IPV4 13.251.17.140:3000
+# ENV DB_HOST localhost
+# ENV DB_USER new
+# ENV DB_PWD 123
+# ENV DB_DB muse
 
 # Install dependencies
 RUN npm install

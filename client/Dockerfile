@@ -2,7 +2,7 @@
 FROM node:19.6.0-alpine AS build-stage
 WORKDIR /app
 COPY package*.json ./
-ENV REACT_APP_EC2_API 13.251.17.140:8081
+# ENV REACT_APP_EC2_API 13.251.17.140:8081
 RUN npm install
 COPY . .
 RUN npm run build
