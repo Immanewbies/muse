@@ -105,7 +105,7 @@ BEGIN
     VALUES (NEW.note_id, NULL);
 END//
 DELIMITER ;
-INSERT INTO note (note_name) VALUES ("C"), ("C#/Db"), ("D"), ("D#/Eb"), ("E"), ("F"), ("F#/Gb"), ("G"), ("G#/Ab"), ("A"), ("A#/Bb"), ("B");
+INSERT INTO note (note_name) VALUES ("C"), ("C#"), ("D"), ("D#"), ("E"), ("F"), ("F#"), ("G"), ("G#"), ("A"), ("A#"), ("B");
 
 DELIMITER //
 CREATE TRIGGER insert_chord_mapping_trigger

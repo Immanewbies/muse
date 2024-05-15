@@ -14,9 +14,13 @@ const salt = process.env.SALT;
 const app = express();
 app.use(express.json());
 app.use(cors({
-    origin: [process.env.EC2_IPV4 || "localhost:3000"],
+    origin: [process.env.EC2_IPV4 || "http://localhost:3000"],
     methods: ["POST", "GET"],
-    credentials: true
+    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"],
+    exposedHeaders: ["Content-Length", "X-Requested-With", "Content-Type", "Authorization"],
+    preflightContinue: false,
+    optionsSuccessStatus: 204
 }));
 app.use(cookieParser());
 
