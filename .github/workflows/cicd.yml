@@ -95,7 +95,7 @@ jobs:
             cd ./docker
             docker-compose down
             if [[ "$(docker images -q)" ]]; then
-              docker rmi $(docker images -q)
+              docker rmi --force $(docker images -q)
               echo "All Docker images removed."
             else
               echo "No Docker images available to remove."
