@@ -21,7 +21,7 @@ services:
     environment:
       PORT: 8081
       SALT: 10
-      EC2_IPV4: client
+      EC2_IPV4: 54.201.208.205:3000
       MYSQL_HOST: db
       MYSQL_USER: new
       MYSQL_PASSWORD: 123
@@ -38,7 +38,7 @@ services:
     image: immanewbies/muse-react:latest
     container_name: muse-client
     environment:
-      REACT_APP_EC2_API: server
+      REACT_APP_EC2_API: 54.201.208.205:8081
     ports:
       - "3000:80"
     depends_on:
