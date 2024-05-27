@@ -100,5 +100,5 @@ jobs:
             else
               echo "No Docker images available to remove."
             fi
-            docker-compose up -d
+            docker-compose up --build -d
 
