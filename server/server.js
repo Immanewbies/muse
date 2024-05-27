@@ -14,13 +14,9 @@ const salt = process.env.SALT;
 const app = express();
 app.use(express.json());
 app.use(cors({
-    origin: [process.env.EC2_IPV4 || "http://localhost:3000"],
+    origin: [process.env.EC2_IPV4,  "http://localhost:3000"],
     methods: ["POST", "GET"],
-    credentials: true,
-    allowedHeaders: ["Content-Type", "Authorization"],
-    exposedHeaders: ["Content-Length", "X-Requested-With", "Content-Type", "Authorization"],
-    preflightContinue: false,
-    optionsSuccessStatus: 204
+    credentials: true
 }));
 app.use(cookieParser());
 
@@ -62,23 +58,6 @@ const verifyUser = (req, res, next) => {
 app.get('/', verifyUser, (req, res) => {
     return res.json({ Status: "Success", profile_name: req.profile_name })
 })
-
-// app.post('/register', async (req, res) => {
-//     const sql = "INSERT INTO user (`username`,`password`,`profile_name`) VALUES (?, ?, ?)";
-//     try {
-//         const hash = await bcrypt.hash(req.body.password.toString(), Number(salt));
-//         const values = [
-//             req.body.username,
-//             hash,
-//             req.body.profile_name
-//         ];
-//         const [results] = await db.query(sql, values);
-//         res.json({ Status: "Success" });
-//     } catch (err) {
-//         console.error(err);
-//         res.json({ Error: "Error occurred on the server" });
-//     }
-// });
 
 app.post('/register', async (req, res) => {
     const sql = "INSERT INTO user (`username`,`password`,`profile_name`) VALUES (?, ?, ?)";
@@ -303,7 +282,13 @@ app.post('/user/getscore', async (req, res) => {
             return res.status(404).json({ Error: "User not found in server." });
         }
         const userid = results[0].user_id;
-        const scoreSql = "SELECT quiz_set_id, score, submit_date FROM score WHERE user_id = ?";
+        const scoreSql = `SELECT d.difficulty_name, c.category_name, s.score, s.submit_date, s.quiz_set_id
+        FROM score s
+        JOIN quiz q ON s.quiz_set_id = q.quiz_set_id
+        JOIN difficulty d ON q.difficulty_id = d.difficulty_id
+        JOIN category c ON q.category_id = c.category_id
+        WHERE s.user_id = ?
+        `;
         const [scoreResults] = await connection.query(scoreSql, [userid]);
         return res.json(scoreResults);
     } catch (err) {

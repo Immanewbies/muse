@@ -12,7 +12,7 @@ function Profile({ profile_name }) {
     const [percent, setPercent] = useState(0)
     const [level, setLevel] = useState(1)
     const [progressLevel, setProgressLevel] = useState('Beginner')
-    
+
 
     useEffect(() => {
         if (profile_name && !profilename) {
@@ -75,40 +75,43 @@ function Profile({ profile_name }) {
         }
     }, [userScore])
 
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        const options = { day: '2-digit', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+        return date.toLocaleString('en-GB', options);
+    }
+
     return (
 
         <div className="side">
 
-      <div className="wrapper">
+            <div className="wrapper">
 
-        <input type="checkbox" id="btn" hidden />
-        <label htmlFor="btn" className="menu-btn">
-          <i className="fas fa-bars"></i>
-          <i className="fas fa-times"></i>
+                <input type="checkbox" id="btn" hidden />
+                <label htmlFor="btn" className="menu-btn">
+                    <i className="fas fa-bars"></i>
+                    <i className="fas fa-times"></i>
 
-        </label>
+                </label>
 
-        <nav id="sidebar">
-          <div className="title" >
-            muse.
-          </div>
-          <ul className="list-items">
+                <nav id="sidebar">
+                    <div className="title" >
+                        muse.
+                    </div>
+                    <ul className="list-items">
 
-            <li><a href="Home"><i ></i>Home</a></li>
-            <li><a href="ChordPiano"><i ></i>Piano Chords</a></li>
-            <li><a href="ChordGuitar"><i ></i>Guitar Chords</a></li>
-            <li><a href="allscale"><i ></i>All Scales</a></li>
-            <li><a href="theory"><i ></i>Music Theory</a></li>
-            <li><a href="eartrain"><i ></i>Ear Trainning</a></li>
-            <li><a href="Quiz"><i ></i>Quiz</a></li>
-
-           
+                        <li><a href="Home"><i ></i>Home</a></li>
+                        <li><a href="ChordPiano"><i ></i>Piano Chords</a></li>
+                        <li><a href="ChordGuitar"><i ></i>Guitar Chords</a></li>
+                        <li><a href="allscale"><i ></i>All Scales</a></li>
+                        <li><a href="theory"><i ></i>Music Theory</a></li>
+                        <li><a href="eartrain"><i ></i>Ear Trainning</a></li>
+                        <li><a href="Quiz"><i ></i>Quiz</a></li>
 
 
-
-          </ul>
-        </nav>
-      </div>
+                    </ul>
+                </nav>
+            </div>
 
 
             <div className="menu">
@@ -116,14 +119,14 @@ function Profile({ profile_name }) {
                 </div>
             </div>
 
-    
 
-                <div className='p'>
+
+            <div className='p'>
                 <div className="center-content">
                     <h1>Progress Level: {progressLevel}</h1>
-                    </div>
+                </div>
 
-                    <div className='center-content'>
+                <div className='center-content'>
                     <div className="container">
                         <div className="ui-widgets">
                             <div className="ui-values">{totalScore}/90</div>
@@ -139,39 +142,41 @@ function Profile({ profile_name }) {
                         </div>
 
 
-                     
-                        </div>
-                        </div>
-
 
                     </div>
-                    <div className="center-container">
+                </div>
 
-                    <div className="table-container">
-                        
-    <table className="styled-table">
-        <thead>
-            <tr>
-                <th>Quiz Set ID</th>
-                <th>Score</th>
-                <th>Submit Date</th>
-            </tr>
-        </thead>
-        <tbody>
-            {userScore.map((score, index) => (
-                <tr key={index}>
-                    <td>{score.quiz_set_id}</td>
-                    <td>{score.score}</td>
-                    <td>{score.submit_date}</td>
-                </tr>
-            ))}
-        </tbody>
-    </table>
-</div>
-</div>
-    </div>
 
-          
+            </div>
+            <div className="center-container">
+
+                <div className="table-container">
+
+                    <table className="styled-table">
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Difficulty</th>
+                                <th>Score</th>
+                                <th>Submit Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {userScore.map((score, index) => (
+                                <tr key={index}>
+                                    <td>{score.category_name}</td>
+                                    <td>{score.difficulty_name}</td>
+                                    <td>{score.score}</td>
+                                    <td>{formatDate(score.submit_date)}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
     )
 }
 
