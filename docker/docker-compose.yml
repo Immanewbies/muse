@@ -1,7 +1,8 @@
 version: '3.9'
 services:
   db:
-    build: ../database
+    # build: ../database
+    image: muse-mysql:latest
     container_name: muse-mysql
     environment:
       MYSQL_USER: new
@@ -14,7 +15,8 @@ services:
     networks:
       - muse 
   server:
-    build: ../server
+    # build: ../server
+    mage: muse-server:latest
     container_name: muse-server
     environment:
       PORT: 8081
@@ -32,7 +34,8 @@ services:
     networks:
       - muse
   client:
-    build: ../client
+    # build: ../client
+    mage: muse-react:latest
     container_name: muse-client
     environment:
       REACT_APP_EC2_API: server
