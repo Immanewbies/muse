@@ -2,7 +2,7 @@ version: '3.9'
 services:
   db:
     # build: ../database
-    image: muse-mysql:latest
+    image: immanewbies/muse-mysql:latest
     container_name: muse-mysql
     environment:
       MYSQL_USER: new
@@ -16,7 +16,7 @@ services:
       - muse 
   server:
     # build: ../server
-    image: muse-server:latest
+    image: immanewbies/muse-server:latest
     container_name: muse-server
     environment:
       PORT: 8081
@@ -35,7 +35,7 @@ services:
       - muse
   client:
     # build: ../client
-    image: muse-react:latest
+    image: immanewbies/muse-react:latest
     container_name: muse-client
     environment:
       REACT_APP_EC2_API: server
