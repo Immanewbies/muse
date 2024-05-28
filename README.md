@@ -20,7 +20,7 @@ sudo apt install -y docker.io
 sudo systemctl start docker
 sudo systemctl enable docker
 sudo groupadd docker          
-sudo usermod -aG docker $USER 
+sudo usermod -aG docker $USER #change $user to your user
 newgrp docker                 
 ```
 * Install Docker Compose
