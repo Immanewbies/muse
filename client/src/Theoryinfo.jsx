@@ -3,11 +3,10 @@ import { Link, useNavigate, useLocation } from 'react-router-dom'
 import axios from 'axios'
 import './components/Sidebar.css'
 import Metronome from './Metronome-main/Metronome';
-import { serverUrl } from './global/constants.js';
 import './Theory.css'
 
 function Theoryinfo() {
-
+  const serverUrl = process.env.REACT_APP_EC2_API || 'http://localhost:8081';
   const [auth, setAuth] = useState(false)
   // const [message, setMessage] = useState('')
   const [profile_name, setProfile_name] = useState('')

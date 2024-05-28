@@ -3,9 +3,9 @@ import { Link, useNavigate, useLocation } from 'react-router-dom'
 import axios from 'axios'
 import "./Home.css"
 import './components/Quizhome.css'
-import { serverUrl } from './global/constants.js';
 
 function EarTraining() {
+    const serverUrl = process.env.REACT_APP_EC2_API || 'http://localhost:8081';
     const [auth, setAuth] = useState(false)
     const [profile_name, setProfile_name] = useState('')
     axios.defaults.withCredentials = true

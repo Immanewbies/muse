@@ -34,11 +34,10 @@ const KEY_TO_NOTE = {
   j: 'bf',
   m: 'b',
 };
-const serverUrl = process.env.REACT_APP_EC2_API || 'http://localhost:8081';
+
 export {
   NOTES,
   VALID_KEYS,
   NOTE_TO_KEY,
   KEY_TO_NOTE,
-  serverUrl
 };

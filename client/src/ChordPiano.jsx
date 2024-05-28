@@ -4,13 +4,13 @@ import axios from 'axios'
 import './components/Sidebar.css'
 import { Piano } from './piano/Piano.js';
 import Metronome from './Metronome-main/Metronome';
-import { serverUrl } from './global/constants.js';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import * as Tone from 'tone'
 import { Chord } from 'tonal'
 
 function ChordPiano() {
+  const serverUrl = process.env.REACT_APP_EC2_API || 'http://localhost:8081';
   const synth = new Tone.PolySynth({
     oscillator: {
       type: 'amtriangle',

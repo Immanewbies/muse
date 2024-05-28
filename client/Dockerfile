@@ -9,7 +9,7 @@ RUN npm run build
 
 # Nginx production stage
 FROM nginx:stable-alpine AS production-stage
-ENV REACT_APP_EC2_API 54.201.208.205:8081
+# ENV REACT_APP_EC2_API 13.251.17.140:8081
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build-stage /app/build /usr/share/nginx/html
 EXPOSE 80

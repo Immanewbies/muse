@@ -4,9 +4,9 @@ import * as Tone from 'tone'
 import { Chord } from 'tonal'
 import axios from 'axios'
 import './Eartrain.css'
-import { serverUrl } from '../global/constants.js';
 
 function Eartrain() {
+    const serverUrl = process.env.REACT_APP_EC2_API || 'http://localhost:8081';
     const location = useLocation()
     const synth = new Tone.PolySynth({
         oscillator: {

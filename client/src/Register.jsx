@@ -2,9 +2,9 @@ import { React, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 // import "./App.css"
-import { serverUrl } from './global/constants.js';
 
 function Register() {
+  const serverUrl = process.env.REACT_APP_EC2_API || 'http://localhost:8081';
   const [values, setValues] = useState({
     username: '',
     password: '',

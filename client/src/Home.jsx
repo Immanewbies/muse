@@ -2,9 +2,9 @@ import { React, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import './Home.css'
-import { serverUrl } from './global/constants'
 
 function Home() {
+  const serverUrl = process.env.REACT_APP_EC2_API || 'http://localhost:8081';
   const [auth, setAuth] = useState(false);
   const [profile_name, setProfile_name] = useState('');
 

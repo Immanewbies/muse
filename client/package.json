@@ -11,6 +11,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.6.8",
     "boostrap": "^2.0.0",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.4.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -25,7 +26,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --transformIgnorePatterns \"node_modules/(?!axios)/\" \"node_modules/(?!tone)/\" --detectOpenHandles --watchAll=false",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build:prod": "cross-env REACT_APP_EC2_API=http://54.201.208.205:8081 npm run build"
   },
   "eslintConfig": {
     "extends": [

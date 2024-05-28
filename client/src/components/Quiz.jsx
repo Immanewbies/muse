@@ -3,10 +3,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import './Quiz.css'
 import '../Home.css'
 import axios from 'axios'
-import { serverUrl } from '../global/constants.js';
 
 function Quiz() {
-
+  const serverUrl = process.env.REACT_APP_EC2_API || 'http://localhost:8081';
   const location = useLocation()
   const [data, setData] = useState(null)
   const [index, setIndex] = useState(0)

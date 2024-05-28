@@ -5,9 +5,9 @@ import axios from 'axios'
 import * as Tone from 'tone'
 import './components/Quizhome.css'
 import './Home.css'
-import { serverUrl } from './global/constants.js';
 
 function EartrainNote() {
+  const serverUrl = process.env.REACT_APP_EC2_API || 'http://localhost:8081';
   const [auth, setAuth] = useState(false)
   const [profile_name, setProfile_name] = useState('')
   axios.defaults.withCredentials = true

@@ -2,7 +2,6 @@ import { React, useEffect, useState } from 'react'
 import axios from 'axios'
 import './Profile.css'
 import './Sidebar.css'
-import { serverUrl } from '../global/constants.js';
 
 function Profile({ profile_name }) {
     const [userScore, setUserScore] = useState([])
@@ -12,7 +11,7 @@ function Profile({ profile_name }) {
     const [percent, setPercent] = useState(0)
     const [level, setLevel] = useState(1)
     const [progressLevel, setProgressLevel] = useState('Beginner')
-
+    const serverUrl = process.env.REACT_APP_EC2_API || 'http://localhost:8081';
 
     useEffect(() => {
         if (profile_name && !profilename) {
