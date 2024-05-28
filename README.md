@@ -7,9 +7,9 @@ This is final project from CS402/403: Special Projects 2 (2/2566)
 
 ## Installation
 ### Install Docker & Docker Compose
-- Windows
-You can install Docker Desktop on Windows by follow instruction https://docs.docker.com/desktop/install/windows-install/
-- Linux (Ubuntu)
+##### Windows
+* You can install Docker Desktop on Windows by follow instruction https://docs.docker.com/desktop/install/windows-install/
+##### Linux (Ubuntu)
 * Update Package Lists
 ```shell
 sudo apt update
@@ -37,8 +37,8 @@ cd Docker
 ```shell
 docker compose up --build -d
 ```
-### Waiting after Docker started for 1 minute 
-### Enjoy projects
+#### Waiting after Docker started for 1 minute 
+#### Enjoy projects
 
 ## Note
 * if you can't use when docker started because container mysql is start slow than server, and then server can't find database when docker just started
