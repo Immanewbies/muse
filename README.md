@@ -31,7 +31,7 @@ git clone https://github.com/Immanewbies/muse.git
 ```
 ### Change Directory to Docker
 ```shell
-cd Docker
+cd muse/docker
 ```
 ### Run Docker Compose
 ```shell
