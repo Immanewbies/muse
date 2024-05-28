@@ -37,7 +37,7 @@ cd Docker
 ```shell
 docker compose up --build -d
 ```
-#### Waiting after Docker started for 1 minute 
+#### Waiting after Docker get started for 1 minute 
 #### Enjoy projects
 
 ## Note
